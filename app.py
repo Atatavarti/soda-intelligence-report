@@ -979,8 +979,8 @@ with tab3:
     st.info("""
     **Key Context:** 
     - **Total US CSD Market**: ~$50-55B annually (CSD = Carbonated Soft Drinks: all fizzy sodas)
-    - **Online CSD Sales**: ~5% of total market (~$2.5-2.8B)
-    - **This Dashboard**: Tracks ~$86M annually in Amazon ASINs (436 products = sample of Amazon soda category)
+    - **Online CSD Sales**: Roughly 5% of total market (~$2.5-2.8B)
+    - **This Dashboard**: Tracks ~$86M annually in Amazon ASINs (436 products = sample of Amazon soda plus modern soda category)
     """)
     
     col1, col2 = st.columns(2)
