@@ -973,21 +973,6 @@ with tab2:
 with tab3:
     st.header("🌐 Online vs Offline Reality")
     
-    st.markdown("""
-    <div style='background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 25px; border-radius: 10px; color: white; margin-bottom: 30px;'>
-        <p style='margin: 0; font-size: 16px; line-height: 1.8;'>
-            <strong>This dashboard analyzes 436 Amazon ASINs, NOT the entire US soda market.</strong><br><br>
-            
-            <strong>What the data shows:</strong> Modern sodas = 25% of tracked Amazon products<br>
-            <strong>Market reality:</strong> Modern sodas = 3-4% of total US offline CSD sales<br><br>
-            
-            <strong>Why the difference?</strong> Amazon serves as a proxy for online shopping behavior, where modern brands 
-            over-index by 6-8x compared to their offline market share. This reveals channel-specific consumer preferences, 
-            not total market disruption.
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
-    
     # Section 1: Market Size Comparison
     st.subheader("📊 Market Context: Online vs Offline Distribution")
     
