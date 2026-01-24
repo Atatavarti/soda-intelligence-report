@@ -1152,21 +1152,15 @@ with tab3:
     st.markdown("---")
     
     # Section 5: Data Sources & Methodology
-    st.subheader("📚 Data Sources & Methodology")
+    st.subheader("📚 Data Sources")
     
     st.markdown("""
-    **This Dashboard:**
-    - **Amazon:** 460 products, BSR-based velocity, actual "units sold" data
-    - **Walmart:** 454 products, review-based popularity proxy
-    - **Coverage:** 96.5% revenue estimation confidence
-    - **Time Period:** Data collected Jan 2026
     
     **Market Data Sources:**
     - Grand View Research: Prebiotic soda market sizing
     - Euromonitor International: Digestive health soft drinks category
     - Statista: US carbonated soft drinks market
     - Circana: Channel performance data
-    - Beverage Industry publications
     - Company press releases (poppi, OLIPOP, Coca-Cola, PepsiCo)
     
     **Limitations:**
