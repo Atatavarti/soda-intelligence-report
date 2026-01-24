@@ -198,14 +198,18 @@ with tab1:
         fig.update_xaxes(showgrid=True, gridcolor='lightgray')
         st.plotly_chart(fig, use_container_width=True)
     
-    st.info("""
-    **💡 Brand vs Parent Company:**
-    - **Individual brands:** Coca-Cola ($743K) ≈ poppi ($742K) - similar size
-    - **Parent companies:** Coca-Cola Company ($3.46M) >> PepsiCo ($1.47M)
-    - **Why?** Coca-Cola Company owns 12 brands (Diet Coke, Coke Zero, Health-Ade kombucha, Sprite, etc.)
-    - **🚨 Recent Acquisition:** poppi acquired by PepsiCo (2025) - doubled PepsiCo's market share from 8.8% → 17.8%!
-    - **OLIPOP remains independent** - the last major standalone modern soda brand
-    """)
+    st.markdown("""
+    <div style='background: #e3f2fd; padding: 20px; border-radius: 10px; margin-bottom: 20px;'>
+        <h4 style='margin-top: 0;'>💡 Brand vs Parent Company:</h4>
+        <ul style='line-height: 2;'>
+            <li><strong>Individual brands:</strong> Coca-Cola ($743K) similar to poppi ($742K)</li>
+            <li><strong>Parent companies:</strong> Coca-Cola Company ($3.46M) much larger than PepsiCo ($1.47M)</li>
+            <li><strong>Why?</strong> Coca-Cola Company owns 12+ brands (Diet Coke, Coke Zero, Sprite, Health-Ade, etc.) - excludes fountain/foodservice</li>
+            <li>🔥 <strong>Recent Acquisition:</strong> poppi acquired by PepsiCo (2025) - doubled PepsiCo market share from 8.8% to 17.8%</li>
+            <li><strong>OLIPOP remains independent</strong> - the last major standalone modern soda brand</li>
+        </ul>
+    </div>
+    """, unsafe_allow_html=True)
     
     st.markdown("---")
     
@@ -979,8 +983,8 @@ with tab3:
     st.info("""
     **Key Context:** 
     - **Total US CSD Market**: ~$50-55B annually (CSD = Carbonated Soft Drinks: all fizzy sodas)
-    - **Online CSD Sales**: Roughly 5% of total market (~$2.5-2.8B)
-    - **This Dashboard**: Tracks ~$86M annually in Amazon ASINs (436 products = sample of Amazon soda plus modern soda category)
+    - **Online CSD Sales**: ~5% of total market (~$2.5-2.8B)
+    - **This Dashboard**: Tracks ~$86M annually in Amazon ASINs (436 products = sample of Amazon soda category)
     """)
     
     col1, col2 = st.columns(2)
@@ -1152,20 +1156,37 @@ with tab3:
     st.markdown("---")
     
     # Section 5: Data Sources & Methodology
-    st.subheader("📚 Data Sources")
+    st.subheader("📚 Data Sources & Methodology")
     
     st.markdown("""
+    **This Dashboard:**
+    - **Amazon:** 460 products, BSR-based velocity, actual "units sold" data
+    - **Walmart:** 454 products, review-based popularity proxy
+    - **Coverage:** 96.5% revenue estimation confidence
+    - **Time Period:** Data collected Jan 2026
     
     **Market Data Sources:**
     - Grand View Research: Prebiotic soda market sizing
     - Euromonitor International: Digestive health soft drinks category
     - Statista: US carbonated soft drinks market
     - Circana: Channel performance data
+    - Beverage Industry publications
     - Company press releases (poppi, OLIPOP, Coca-Cola, PepsiCo)
     
     **Limitations:**
-    - Amazon data ≠ total online market
+    - Amazon data ≠ total market
     - Walmart proxy ≠ actual sales
+    - No foodservice/vending machine data
+    - Regional variations not captured
+    - Single snapshot in time (not trend analysis)
+    """)
+    
+    st.success("""
+    **Bottom Line:** This dashboard excels at showing **online channel dynamics** and **modern brand performance** 
+    in e-commerce. Modern sodas are 3-4% of the $50-55B offline CSD market but 25% of tracked Amazon ASINs (~6-8x over-index). 
+    Use it to understand Amazon-specific behavior and emerging consumer trends, NOT to estimate total US soda market dynamics.
+    
+    *Data Sources: Mintel ($55.2B CSD), Circana ($1.8B modern sodas, 83% growth), Beverage Digest (brand shares)*
     """)
 
 # Footer
