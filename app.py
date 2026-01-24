@@ -1170,19 +1170,8 @@ with tab3:
     - Company press releases (poppi, OLIPOP, Coca-Cola, PepsiCo)
     
     **Limitations:**
-    - Amazon data ≠ total market
+    - Amazon data ≠ total online market
     - Walmart proxy ≠ actual sales
-    - No foodservice/vending machine data
-    - Regional variations not captured
-    - Single snapshot in time (not trend analysis)
-    """)
-    
-    st.success("""
-    **Bottom Line:** This dashboard excels at showing **online channel dynamics** and **modern brand performance** 
-    in e-commerce. Modern sodas are 3-4% of the $50-55B offline CSD market but 25% of tracked Amazon ASINs (~6-8x over-index). 
-    Use it to understand Amazon-specific behavior and emerging consumer trends, NOT to estimate total US soda market dynamics.
-    
-    *Data Sources: Mintel ($55.2B CSD), Circana ($1.8B modern sodas, 83% growth), Beverage Digest (brand shares)*
     """)
 
 # Footer
