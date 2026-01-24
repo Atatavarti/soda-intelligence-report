@@ -975,70 +975,97 @@ with tab3:
     
     st.markdown("""
     <div style='background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 25px; border-radius: 10px; color: white; margin-bottom: 30px;'>
-        <h3 style='margin-top: 0; color: white;'>⚠️ CRITICAL CONTEXT: This Dashboard Shows Amazon ASINs, NOT Total Market</h3>
         <p style='margin: 0; font-size: 16px; line-height: 1.8;'>
-            Modern sodas appear to be 25% of the market in this dashboard. <br>
-            <strong>Reality: Modern sodas are ~3-4% of the $50-55B US CSD market ($1.8B, Circana 2024).</strong><br>
-            <br>
-            This dashboard reveals <strong>Amazon-specific consumer behavior</strong> - where modern brands over-index ~6-8x.
+            <strong>This dashboard analyzes 436 Amazon ASINs, NOT the entire US soda market.</strong><br><br>
+            
+            <strong>What the data shows:</strong> Modern sodas = 25% of tracked Amazon products<br>
+            <strong>Market reality:</strong> Modern sodas = 3-4% of total US offline CSD sales<br><br>
+            
+            <strong>Why the difference?</strong> Amazon serves as a proxy for online shopping behavior, where modern brands 
+            over-index by 6-8x compared to their offline market share. This reveals channel-specific consumer preferences, 
+            not total market disruption.
         </p>
     </div>
     """, unsafe_allow_html=True)
     
     # Section 1: Market Size Comparison
-    st.subheader("📊 Total Market vs Amazon Reality")
+    st.subheader("📊 Market Context: Online vs Offline Distribution")
+    
+    st.info("""
+    **Key Context:** 
+    - **Total US CSD Market**: ~$50-55B annually (offline-dominant)
+    - **Online CSD Sales**: Estimated 3-5% of total market (~$1.5-2.8B)
+    - **Amazon CSD Sales**: Subset of online, estimated ~$500M-1B annually
+    - **This Dashboard**: Tracks ~$86M annually in Amazon ASINs (436 products = sample of Amazon soda category)
+    """)
     
     col1, col2 = st.columns(2)
     
     with col1:
-        st.markdown("### **Total US CSD Market (2024)**")
+        st.markdown("### **Offline CSD Market (Dominant)**")
         st.markdown("""
-        **Market Size:** $50-55 Billion (CSD only)
-        - Mintel estimate: $55.2B
-        - Circana: $46.1B (52-week data)
-        - Industry consensus: $45-50B range
+        **Total Market Size:** $50-55 Billion
+        - Mintel: $55.2B
+        - Circana: $46.1B
+        - ~95-97% of total CSD sales
         
-        **Category Breakdown (Parent Companies):**
-        - Coca-Cola brands: ~45% (Coke, Sprite, Diet Coke, etc.)
-        - PepsiCo brands: ~26% (Pepsi, Mountain Dew, etc.)
-        - Keurig Dr Pepper: ~21% (Dr Pepper, 7UP, etc.)
-        - **Modern sodas: ~3-4%** ($1.8B, Circana)
+        **Modern Soda Share:** 3-4% ($1.8B)
+        - poppi + OLIPOP + others
+        - Growing 83% YoY (Circana)
+        - Still niche in traditional retail
+        
+        **Category Breakdown:**
+        - Coca-Cola brands: ~45%
+        - PepsiCo brands: ~26%
+        - Keurig Dr Pepper: ~21%
+        - **Modern sodas: 3-4%**
         - Others: ~4-5%
         
-        **Distribution:**
-        - Convenience stores, vending machines
-        - Restaurants, fast food, stadiums
-        - Grocery stores (impulse purchases)
+        **Distribution Channels:**
+        - Convenience stores, gas stations (massive volume)
+        - Restaurants, fast food (fountain drinks)
+        - Grocery stores, supermarkets
+        - Vending machines, stadiums
         
         *Sources: Mintel, Circana, Beverage Digest*
         """)
     
     with col2:
-        st.markdown("### **Amazon Soda (Tracked ASINs)**")
+        st.markdown("### **Amazon Sample (This Dashboard)**")
         st.markdown("""
-        **Estimated Annual:** ~$100M
-        - This dashboard: $8.3M monthly × 12
-        - Represents tracked ASINs, not total Amazon soda
+        **Tracked Revenue:** ~$86M annually
+        - 436 Amazon products analyzed
+        - Subset of Amazon's total soda sales
+        - Amazon itself = small % of total market
+        
+        **Modern Soda Share:** 25% (of tracked ASINs)
+        - **6-8x OVER-INDEXED** vs offline
+        - Shows online shopping behavior
+        - NOT representative of total market
         
         **Category Breakdown (Our Data):**
         - Traditional: 44%
         - Diet: 31%
-        - **Modern: 25%** ⚠️ **6-8x over-index!**
+        - **Modern: 25%** ⚠️
         
-        **Calculation:**
-        - Offline: 3-4% modern
-        - Amazon: 25% modern
-        - Over-index: 25% ÷ 3.5% = ~7x
+        **Why Over-Index Happens:**
+        - Search-driven product discovery
+        - Subscription/auto-replenish behavior
+        - Review-influenced purchasing
+        - DTC brand strategy (Amazon-first)
+        - Higher price tolerance online
         
-        **Distribution:**
-        - Search-driven discovery
-        - Subscription auto-replenish
-        - Review-based decision making
+        **The Math:**
+        - Offline modern share: 3.5%
+        - Amazon modern share: 25%
+        - Over-index: 25% ÷ 3.5% = **7x**
         """)
     
-    st.success(r"""
-    **Key Insight:** Modern sodas capture 25% of tracked Amazon ASINs but approximately 3-4% of total offline CSD market. 
-    This represents a 6 to 8 times over-representation, revealing how DTC brands dominate online discovery channels while remaining niche offline.
+    st.success("""
+    **🎯 Key Takeaway:** Modern sodas capture 25% of our tracked Amazon sample but only 3-4% of the total offline market. 
+    This 6-8x over-representation reveals Amazon as a discovery and trial channel for premium/functional beverages, 
+    NOT a predictor of offline market share. Amazon amplifies certain brands due to platform dynamics (search, reviews, DTC strategy), 
+    but 95%+ of soda sales still happen offline where traditional brands dominate.
     """)
     
     st.markdown("---")
