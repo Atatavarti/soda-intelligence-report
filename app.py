@@ -978,9 +978,8 @@ with tab3:
     
     st.info("""
     **Key Context:** 
-    - **Total US CSD Market**: ~$50-55B annually (offline-dominant)
-    - **Online CSD Sales**: Estimated 3-5% of total market (~$1.5-2.8B)
-    - **Amazon CSD Sales**: Subset of online, estimated ~$500M-1B annually
+    - **Total US CSD Market**: ~$50-55B annually (CSD = Carbonated Soft Drinks: all fizzy sodas)
+    - **Online CSD Sales**: ~5% of total market (~$2.5-2.8B)
     - **This Dashboard**: Tracks ~$86M annually in Amazon ASINs (436 products = sample of Amazon soda category)
     """)
     
