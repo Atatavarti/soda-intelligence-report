@@ -72,7 +72,7 @@ df = load_data()
 # Title
 st.markdown("""
 <h1 style='text-align: center; color: #1e3a8a; font-size: 3em; font-weight: bold;'>
-🥤 Soda Category Intelligence Dashboard
+Soda Category Intelligence Dashboard
 </h1>
 <p style='text-align: center; color: #666; font-size: 1.2em; margin-bottom: 10px;'>
 Amazon & Walmart Market Analysis | 889 Products
@@ -301,11 +301,6 @@ with tab2:
         fig.update_layout(showlegend=False, height=400, margin=dict(t=40, b=0))
         st.plotly_chart(fig, use_container_width=True)
         
-        # Show percentages
-        total_rev = parent_revenue.sum()
-        for parent, rev in parent_revenue.items():
-            pct = (rev / total_rev) * 100
-            st.markdown(f"**{parent}:** {pct:.1f}%")
     
     st.markdown("""
     <div style='background: #e3f2fd; padding: 20px; border-radius: 10px; margin-bottom: 20px;'>
