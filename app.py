@@ -660,47 +660,46 @@ with tab3:
     st.markdown("---")
     
     # Distribution Analysis
-    st.subheader("Product Distribution")
+        st.subheader("📦 Product Distribution")
     
     col1, col2 = st.columns(2)
     
     with col1:
-        # Type distribution
-        type_dist = walmart_filtered.groupby('soda_type')['asin'].count()
+        # Revenue proxy by soda type
+        proxy_by_type = walmart_filtered.groupby('soda_type')['revenue_proxy'].sum()
         
         fig = px.pie(
-            values=type_dist.values,
-            names=type_dist.index,
-            title="Product Count by Type",
-            color=type_dist.index,
+            values=proxy_by_type.values,
+            names=proxy_by_type.index,
+            title="Revenue Proxy by Soda Type",
+            color=proxy_by_type.index,
             color_discrete_map=SODA_TYPE_COLORS
         )
-        fig.update_traces(textposition='inside', textinfo='percent+label')
-        fig.update_layout(height=300)
+        fig.update_traces(textposition='inside', textinfo='percent+label', textfont_size=13)
+        fig.update_layout(
+            height=450,
+            margin=dict(t=60, b=20, l=20, r=20)
+        )
         st.plotly_chart(fig, use_container_width=True)
     
     with col2:
-        # Pack size distribution
-        pack_dist = walmart_filtered.groupby('pack_size')['asin'].count().sort_values(ascending=False).head(6)
+        # Revenue proxy by parent brand
+        proxy_by_parent = walmart_filtered.groupby('parent_brand')['revenue_proxy'].sum().sort_values(ascending=False).head(5)
         
-        fig = go.Figure()
-        fig.add_trace(go.Bar(
-            x=[f"{int(p)}-pack" for p in pack_dist.index],
-            y=pack_dist.values,
-            marker_color='#4ECDC4'
-        ))
-        fig.update_layout(
-            title="Pack Size Distribution",
-            xaxis_title="Pack Size",
-            yaxis_title="Product Count",
-            height=300,
-            showlegend=False
+        fig = px.pie(
+            values=proxy_by_parent.values,
+            names=proxy_by_parent.index,
+            title="Revenue Proxy by Parent Brand",
+            color_discrete_sequence=px.colors.sequential.Blues_r
         )
-        fig.update_xaxes(showgrid=True, gridcolor='lightgray')
+        fig.update_traces(textposition='inside', textinfo='percent+label', textfont_size=13)
+        fig.update_layout(
+            height=450,
+            showlegend=False,
+            margin=dict(t=60, b=20, l=20, r=20)
+        )
         st.plotly_chart(fig, use_container_width=True)
-    
-    st.markdown("---")
-    
+        
     # Revenue Proxy Leaders
     st.subheader("Revenue Proxy Leaders")
     
