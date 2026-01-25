@@ -277,8 +277,6 @@ with tab2:
         st.plotly_chart(fig, use_container_width=True)
         
 
-    
-    with col2:
     st.markdown("**Parent Company Market Share**")
     
     # Get all parent brands and calculate true market share percentages
