@@ -224,14 +224,6 @@ with tab1:
     However, offline distribution (convenience stores, restaurants, vending) remains critical for scale.
     """)
     
-    # Data sources
-    st.markdown("---")
-    st.markdown("""
-    **📚 Data Sources:**
-    - Market sizing: Mintel ($55.2B), Circana ($46.1B, $1.8B modern sodas)
-    - Brand share: Beverage Digest, Gitnux
-    - Product data: Amazon & Walmart web scraping (January 2026)
-    """)
 
 # ============================================================================
 # TAB 2: AMAZON ANALYSIS (REORGANIZED)
