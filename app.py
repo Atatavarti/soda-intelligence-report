@@ -666,7 +666,8 @@ with tab3:
     
     walmart_filtered = walmart_df[walmart_df['soda_type'].isin(walmart_types)]
     
-    # Key Metrics
+# Key Metrics
+    st.markdown("### 📊 Walmart Overview")
     
     col1, col2, col3 = st.columns(3)
     
@@ -685,6 +686,10 @@ with tab3:
     st.markdown("---")
     
     # Distribution Analysis
+    st.subheader("📦 Product Distribution")
+    
+    col1, col2 = st.columns(2)
+    
     with col1:
         # Revenue proxy by soda type
         proxy_by_type = walmart_filtered.groupby('soda_type')['revenue_proxy'].sum()
@@ -696,8 +701,11 @@ with tab3:
             color=proxy_by_type.index,
             color_discrete_map=SODA_TYPE_COLORS
         )
-        fig.update_traces(textposition='inside', textinfo='percent+label', textfont_size=12)
-        fig.update_layout(height=400)
+        fig.update_traces(textposition='inside', textinfo='percent+label', textfont_size=13)
+        fig.update_layout(
+            height=450,
+            margin=dict(t=60, b=20, l=20, r=20)
+        )
         st.plotly_chart(fig, use_container_width=True)
     
     with col2:
@@ -710,9 +718,14 @@ with tab3:
             title="Revenue Proxy by Parent Brand",
             color_discrete_sequence=px.colors.sequential.Blues_r
         )
-        fig.update_traces(textposition='inside', textinfo='percent+label', textfont_size=12)
-        fig.update_layout(height=400, showlegend=False)
+        fig.update_traces(textposition='inside', textinfo='percent+label', textfont_size=13)
+        fig.update_layout(
+            height=450,
+            showlegend=False,
+            margin=dict(t=60, b=20, l=20, r=20)
+        )
         st.plotly_chart(fig, use_container_width=True)
+            
     
     # Revenue Proxy Leaders
     st.subheader("💰 Revenue Proxy Leaders")
