@@ -969,11 +969,10 @@ with tab4:
         **Category Breakdown (Our Data):**
         - Traditional: 36%
         - Diet: 33%
-        - **Modern: 30%** ⚠️
+        - **Modern: 30%**
         
         **Why Over-Index Happens:**
         - Search-driven product discovery
-        - Subscription/auto-replenish behavior
         - Review-influenced purchasing (Social proof)
         - DTC brand strategy (Amazon-first)
         
@@ -1011,7 +1010,7 @@ with tab4:
     with col2:
         st.markdown("""
         <div style='background: #fff3e0; padding: 20px; border-radius: 10px; border-left: 5px solid #ff9800;'>
-            <h4>⚠️ Offline Challenges for Modern Brands</h4>
+            <h4>Offline Challenges for Modern Brands</h4>
             <ul>
                 <li><strong>Limited Distribution:</strong> Not in gas stations, vending machines</li>
                 <li><strong>Shelf Space Battle:</strong> Coke/Pepsi control 70%+ of space</li>
@@ -1078,7 +1077,7 @@ with tab4:
     
     st.markdown("""
     <div style='background: #f5f5f5; padding: 25px; border-radius: 10px; margin-bottom: 20px;'>
-        <h4 style='margin-top: 0;'>🔑 Key Points to Remember:</h4>
+        <h4 style='margin-top: 0;'>Key Points to Remember:</h4>
         <ol style='line-height: 2;'>
             <li><strong>Amazon ≠ Total Market:</strong> This dashboard shows 436 Amazon products, not the $50-55B CSD market</li>
             <li><strong>Online = 5% of Sales:</strong> 95% of sodas sold offline (convenience, restaurants, vending)</li>
