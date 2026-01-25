@@ -901,7 +901,7 @@ with tab4:
     st.info("""
     **Key Context:** 
     - **Total US CSD Market**: ~$50-55B annually (CSD = Carbonated Soft Drinks: all fizzy sodas)
-    - **Online CSD Sales**: ~5% of total market (~$2.5-2.8B)
+    - **Online CSD Sales**: Roughly 5% of total market (~$2.5-2.8B)
     - **This Dashboard**: Tracks ~$86M annually in Amazon ASINs (436 products = sample of Amazon soda category)
     """)
     
@@ -953,15 +953,10 @@ with tab4:
         
         **Why Over-Index Happens:**
         - Search-driven product discovery
-        - Subscription/auto-replenish behavior
         - Review-influenced purchasing
         - DTC brand strategy (Amazon-first)
         - Higher price tolerance online
-        
-        **The Math:**
-        - Offline modern share: 3.5%
-        - Amazon modern share: 25%
-        - Over-index: 25 ÷ 3.5 = **7x**
+
         """)
     
     st.success("""
@@ -985,7 +980,6 @@ with tab4:
             <ul>
                 <li><strong>Search Discovery:</strong> "Healthy soda" "prebiotic soda" → Modern brands rank #1</li>
                 <li><strong>Review Influence:</strong> 4.5-star ratings drive conversions</li>
-                <li><strong>Subscription Model:</strong> 15-20% subscribe & save adoption</li>
                 <li><strong>DTC Strategy:</strong> Modern brands prioritize Amazon (higher margins)</li>
                 <li><strong>No Shelf Space Battle:</strong> Equal visibility vs Coke/Pepsi</li>
                 <li><strong>Content Rich:</strong> Product descriptions educate on benefits</li>
@@ -1001,7 +995,6 @@ with tab4:
                 <li><strong>Limited Distribution:</strong> Not in gas stations, vending machines</li>
                 <li><strong>Shelf Space Battle:</strong> Coke/Pepsi control 70%+ of space</li>
                 <li><strong>Impulse Purchase:</strong> Traditional sodas dominate point-of-sale</li>
-                <li><strong>Price Perception:</strong> $2.50/can seems expensive next to $1 Coke</li>
                 <li><strong>Brand Awareness:</strong> Low recognition outside health-conscious demo</li>
                 <li><strong>Restaurant/Fountain:</strong> Zero presence in foodservice</li>
             </ul>
