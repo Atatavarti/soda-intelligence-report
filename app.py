@@ -98,9 +98,12 @@ with tab1:
     This dashboard analyzes the US carbonated soft drink (CSD) market across three key categories: 
     **Traditional** (Coca-Cola, Pepsi, Dr Pepper), **Diet** (Diet Coke, Coke Zero), and **Modern** 
     (poppi, OLIPOP, Zevia). The analysis highlights emerging trends in functional sodas and compares 
-    online versus offline market dynamics to understand channel-specific consumer behavior. Data was 
-    scraped from Amazon and Walmart, with Amazon providing more robust metrics (Best Seller Rank,
-    monthly sales etc) that enable more conclusive insights into consumer demand and product performance.
+    online versus offline market dynamics to understand channel-specific consumer behavior. 
+    
+    The project was built using Python and Streamlit for visualization, with Claude Code powering 
+    data navigation, analysis, and automation across multiple sources. Data was scraped from Amazon and 
+    Walmart, with Amazon providing more robust metrics (Best Seller Rank,monthly sales etc) 
+    that enable more conclusive insights into consumer demand and product performance.
     """)
     
     st.markdown("---")
