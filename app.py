@@ -1078,6 +1078,7 @@ with tab4:
     </div>
     """, unsafe_allow_html=True)
     
+    st.markdown("""
     *Data Sources: Mintel ($55.2B CSD), Circana ($1.8B modern sodas, 83% growth), Beverage Digest (brand shares)*
     """)
 
