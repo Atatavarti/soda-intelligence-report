@@ -876,7 +876,7 @@ with tab4:
     st.info("""
     **Key Context:** 
     - **Total US CSD Market**: ~$50-55B annually (CSD = Carbonated Soft Drinks: all fizzy sodas)
-    - **Online CSD Sales**: ~5% of total market (~$2.5-2.8B)
+    - **Online CSD Sales**: Roughly 5% of total market (~$2.5-2.8B)
     - **This Dashboard**: Tracks ~$86M annually in Amazon ASINs (436 products = sample of Amazon soda category)
     """)
     
@@ -929,14 +929,9 @@ with tab4:
         **Why Over-Index Happens:**
         - Search-driven product discovery
         - Subscription/auto-replenish behavior
-        - Review-influenced purchasing
+        - Review-influenced purchasing (Social proof)
         - DTC brand strategy (Amazon-first)
-        - Higher price tolerance online
         
-        **The Math:**
-        - Offline modern share: 3.5%
-        - Amazon modern share: 25%
-        - Over-index: 25 ÷ 3.5 = **7x**
         """)
     
     st.success("""
