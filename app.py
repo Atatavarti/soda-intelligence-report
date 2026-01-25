@@ -194,8 +194,8 @@ with tab1:
             <ul>
                 <li>poppi & OLIPOP control 67.5% of modern soda revenue</li>
                 <li>Modern sodas: 2.4x price premium yet highest velocity</li>
-                <li>Coca-Cola Company leads overall (36.6% parent share)</li>
-                <li>PepsiCo doubled share post-poppi acquisition (8.8% → 17.8%)</li>
+                <li>Coca-Cola Company leads overall (38.5% parent share)</li>
+                <li>PepsiCo doubled share post-poppi acquisition (24.6% parent share)</li>
             </ul>
         </div>
         """, unsafe_allow_html=True)
