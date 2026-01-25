@@ -276,11 +276,7 @@ with tab2:
         fig.update_layout(showlegend=False, height=400, margin=dict(t=40, b=0))
         st.plotly_chart(fig, use_container_width=True)
         
-        # Show revenue breakdown
-        total_rev = type_revenue.sum()
-        for stype, rev in type_revenue.items():
-            pct = (rev / total_rev) * 100
-            st.markdown(f"**{stype}:** ${rev/1e6:.2f}M ({pct:.1f}%)")
+
     
     with col2:
         st.markdown("**Parent Company Market Share**")
