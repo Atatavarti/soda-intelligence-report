@@ -980,7 +980,6 @@ with tab4:
             <ul>
                 <li><strong>Search Discovery:</strong> "Healthy soda" "prebiotic soda" → Modern brands rank #1</li>
                 <li><strong>Review Influence:</strong> 4.5-star ratings drive conversions</li>
-                <li><strong>DTC Strategy:</strong> Modern brands prioritize Amazon (higher margins)</li>
                 <li><strong>No Shelf Space Battle:</strong> Equal visibility vs Coke/Pepsi</li>
                 <li><strong>Content Rich:</strong> Product descriptions educate on benefits</li>
             </ul>
