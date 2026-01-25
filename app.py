@@ -311,6 +311,11 @@ with tab2:
         fig.update_layout(showlegend=False, height=400, margin=dict(t=40, b=0))
         st.plotly_chart(fig, use_container_width=True)
         
+        # Show percentages
+        total_rev = parent_revenue.sum()
+        for parent, rev in parent_revenue.items():
+            pct = (rev / total_rev) * 100
+            st.markdown(f"**{parent}:** {pct:.1f}%")
     
     st.markdown("""
     <div style='background: #e3f2fd; padding: 20px; border-radius: 10px; margin-bottom: 20px;'>
@@ -556,9 +561,9 @@ with tab2:
     **🎯 Modern Soda Performance Paradox:**
     
     Modern sodas combine premium positioning with superior performance:
-    • **Highest velocity score:** 45.6 (vs 36.2 traditional, 41.8 diet)
-    • **Premium pricing:** $1.34/oz (2.4x traditional at $0.57/oz, 2.7x diet at $0.50/oz)
-    • **Smaller trial packs:** 3.7 avg pack size (vs 6.2 traditional)
+    - **Highest velocity score:** 45.6 (vs 36.2 traditional, 41.8 diet)
+    - **Premium pricing:** $1.34/oz (2.4x traditional at $0.57/oz, 2.7x diet at $0.50/oz)
+    - **Smaller trial packs:** 3.7 avg pack size (vs 6.2 traditional)
     
     **Key Insight:** Consumers willing to pay significantly more for functional benefits like prebiotics and adaptogens, 
     proving modern sodas have achieved product-market fit despite substantial price premium. High velocity + high price = 
@@ -905,14 +910,11 @@ with tab4:
     with col1:
         st.markdown("### **Offline CSD Market (Dominant)**")
         st.markdown("""
-        **Total Market Size:** $50-55 Billion
-        - Mintel: $55.2B
-        - Circana: $46.1B
-        - ~95% of total CSD sales
+        **Total Market Size:** ~$50B annually
+        - Represents ~95% of total CSD sales
         
         **Modern Soda Share:** 3-4% ($1.8B)
-        - poppi + OLIPOP + others
-        - Growing 83% YoY (Circana)
+        - Growing 83% YoY
         - Still niche in traditional retail
         
         **Category Breakdown:**
@@ -923,12 +925,12 @@ with tab4:
         - Others: ~4-5%
         
         **Distribution Channels:**
-        - Convenience stores, gas stations (massive volume)
-        - Restaurants, fast food (fountain drinks)
+        - Convenience stores, gas stations
+        - Restaurants, fast food (fountain)
         - Grocery stores, supermarkets
         - Vending machines, stadiums
         
-        *Sources: Mintel, Circana, Beverage Digest*
+        *Sources: Circana, Beverage Digest*
         """)
     
     with col2:
@@ -959,7 +961,7 @@ with tab4:
         **The Math:**
         - Offline modern share: 3.5%
         - Amazon modern share: 25%
-        - Over-index: 25% ÷ 3.5% = **7x**
+        - Over-index: 25 ÷ 3.5 = **7x**
         """)
     
     st.success("""
@@ -1074,7 +1076,7 @@ with tab4:
     """, unsafe_allow_html=True)
     
     st.markdown("""
-    *Data Sources: Mintel ($55.2B CSD), Circana ($1.8B modern sodas, 83% growth), Beverage Digest (brand shares)*
+    *Data Sources: Circana ($1.8B modern sodas, 83% growth), Beverage Digest (brand shares)*
     """)
 
 # Footer
