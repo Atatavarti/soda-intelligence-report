@@ -685,24 +685,24 @@ with tab3:
     st.markdown("---")
     
     # Distribution Analysis
-    # Distribution Analysis
+# Distribution Analysis
     st.subheader("📦 Product Distribution")
     
     col1, col2 = st.columns(2)
     
     with col1:
-        # Type distribution
-        type_dist = walmart_filtered.groupby('soda_type')['asin'].count()
+        # Total reviews by soda type
+        review_by_type = walmart_filtered.groupby('soda_type')['review_count'].sum()
         
         fig = px.pie(
-            values=type_dist.values,
-            names=type_dist.index,
-            title="Product Count by Soda Type",
-            color=type_dist.index,
+            values=review_by_type.values,
+            names=review_by_type.index,
+            title="Total Reviews by Soda Type",
+            color=review_by_type.index,
             color_discrete_map=SODA_TYPE_COLORS
         )
-        fig.update_traces(textposition='inside', textinfo='percent+label')
-        fig.update_layout(height=300)
+        fig.update_traces(textposition='inside', textinfo='percent+label', textfont_size=12)
+        fig.update_layout(height=400)
         st.plotly_chart(fig, use_container_width=True)
     
     with col2:
@@ -715,8 +715,8 @@ with tab3:
             title="Total Reviews by Parent Brand",
             color_discrete_sequence=px.colors.sequential.Blues_r
         )
-        fig.update_traces(textposition='inside', textinfo='percent+label', textfont_size=11)
-        fig.update_layout(height=300, showlegend=False)
+        fig.update_traces(textposition='inside', textinfo='percent+label', textfont_size=12)
+        fig.update_layout(height=400, showlegend=False)
         st.plotly_chart(fig, use_container_width=True)
         
     # Revenue Proxy Leaders
