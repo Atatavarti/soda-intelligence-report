@@ -319,7 +319,7 @@ with tab2:
             <li><strong>Individual brands:</strong> Coca-Cola ($743K) similar to poppi ($742K)</li>
             <li><strong>Parent companies:</strong> Coca-Cola Company ($2.6M) much larger than PepsiCo ($1.7M)</li>
             <li><strong>Why?</strong> Coca-Cola Company owns 12+ brands (Diet Coke, Coke Zero, Sprite, Health-Ade, etc.) - excludes fountain/foodservice</li>
-            <li>🔥 <strong>Recent Acquisition:</strong> poppi acquired by PepsiCo (2025) - doubled PepsiCo market share from 8.8% to 17.8%</li>
+            <li>🔥 <strong>Recent Acquisition:</strong> poppi acquired by PepsiCo (2025) - almost doubled PepsiCo market share</li>
             <li><strong>OLIPOP remains independent</strong> - the last major standalone modern soda brand</li>
         </ul>
     </div>
