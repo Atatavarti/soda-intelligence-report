@@ -685,6 +685,7 @@ with tab3:
     st.markdown("---")
     
     # Distribution Analysis
+    # Distribution Analysis
     st.subheader("📦 Product Distribution")
     
     col1, col2 = st.columns(2)
@@ -696,7 +697,7 @@ with tab3:
         fig = px.pie(
             values=type_dist.values,
             names=type_dist.index,
-            title="Product Count by Type",
+            title="Product Count by Soda Type",
             color=type_dist.index,
             color_discrete_map=SODA_TYPE_COLORS
         )
@@ -705,27 +706,19 @@ with tab3:
         st.plotly_chart(fig, use_container_width=True)
     
     with col2:
-        # Pack size distribution
-        pack_dist = walmart_filtered.groupby('pack_size')['asin'].count().sort_values(ascending=False).head(6)
+        # Sum of reviews by parent brand - pie chart
+        review_by_parent = walmart_filtered.groupby('parent_brand')['review_count'].sum().sort_values(ascending=False).head(5)
         
-        fig = go.Figure()
-        fig.add_trace(go.Bar(
-            x=[f"{int(p)}-pack" for p in pack_dist.index],
-            y=pack_dist.values,
-            marker_color='#4ECDC4'
-        ))
-        fig.update_layout(
-            title="Pack Size Distribution",
-            xaxis_title="Pack Size",
-            yaxis_title="Product Count",
-            height=300,
-            showlegend=False
+        fig = px.pie(
+            values=review_by_parent.values,
+            names=review_by_parent.index,
+            title="Total Reviews by Parent Brand",
+            color_discrete_sequence=px.colors.sequential.Blues_r
         )
-        fig.update_xaxes(showgrid=True, gridcolor='lightgray')
+        fig.update_traces(textposition='inside', textinfo='percent+label', textfont_size=11)
+        fig.update_layout(height=300, showlegend=False)
         st.plotly_chart(fig, use_container_width=True)
-    
-    st.markdown("---")
-    
+        
     # Revenue Proxy Leaders
     st.subheader("💰 Revenue Proxy Leaders")
     
