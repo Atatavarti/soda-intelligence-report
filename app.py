@@ -43,9 +43,9 @@ BRAND_COLORS = {
 }
 
 SODA_TYPE_COLORS = {
-    'Traditional': '#FF6B6B',
-    'Diet': '#4ECDC4',
-    'Modern': '#95E1D3'
+    'Traditional': '#E63946',
+    'Diet': '#06A8B5',
+    'Modern': '#06D6A0'
 }
 
 # Load data
@@ -83,30 +83,28 @@ by Archana Tatavarthi
 """, unsafe_allow_html=True)
 
 # Tabs
-tab1, tab2, tab3, tab4 = st.tabs(["📋 Overview", "📦 Amazon Analysis", "🔄 Walmart Analysis", "🌐 Online vs Offline Reality"])
+tab1, tab2, tab3, tab4 = st.tabs(["📋 Overview", "📦 Amazon Analysis", "🔄 Walmart & Cross-Platform", "🌐 Online vs Offline Reality"])
 
 # ============================================================================
 # TAB 1: OVERVIEW
 # ============================================================================
 
 with tab1:
-    st.header("📋 Project Overview")
+    st.header("Project Overview")
     
     # Purpose
-    st.subheader("🎯 Purpose")
+    st.subheader("Purpose")
     st.markdown("""
     This dashboard analyzes the US carbonated soft drink (CSD) market across three key categories: 
     **Traditional** (Coca-Cola, Pepsi, Dr Pepper), **Diet** (Diet Coke, Coke Zero), and **Modern** 
     (poppi, OLIPOP, Zevia). The analysis highlights emerging trends in functional sodas and compares 
-    online versus offline market dynamics to understand channel-specific consumer behavior. Data was 
-    scraped from Amazon and Walmart, with Amazon providing more robust metrics (BSR-based velocity 
-    scoring) that enable more conclusive insights into consumer demand and product performance.
+    online versus offline market dynamics to understand channel-specific consumer behavior.
     """)
     
     st.markdown("---")
     
     # Methodology
-    st.subheader("📊 Methodology")
+    st.subheader("Methodology")
     
     col1, col2 = st.columns(2)
     
@@ -144,7 +142,9 @@ with tab1:
             <p><strong>Use Cases:</strong></p>
             <ul>
                 <li>✅ Brand presence comparison</li>
-                <li>✅ Historical trends based on lifetime reviews</li>
+                <li>✅ Relative ranking</li>
+                <li>✅ Historical trends</li>
+                <li>❌ NOT for current sales velocity</li>
                 <li>❌ NOT for absolute revenue</li>
             </ul>
             <p><strong>Note:</strong> Walmart data complements Amazon but uses different metrics</p>
@@ -154,7 +154,7 @@ with tab1:
     st.markdown("---")
     
     # Data Scope
-    st.subheader("📁 Data Scope")
+    st.subheader("Data Scope")
     
     col1, col2, col3 = st.columns(3)
     
@@ -184,7 +184,7 @@ with tab1:
     st.markdown("---")
     
     # Key Findings Summary
-    st.subheader("🔑 Key Findings at a Glance")
+    st.subheader("Key Findings at a Glance")
     
     col1, col2 = st.columns(2)
     
@@ -234,20 +234,10 @@ with tab1:
 # ============================================================================
 
 with tab2:
-    st.header("📦 Amazon Soda Category Analysis")
+    st.header("Amazon Soda Category Analysis")
     
     amazon_df = df[df['Platform'] == 'Amazon'].copy()
-    
-    # Filters
-    st.sidebar.header("🎯 Amazon Filters")
-    amazon_types = st.sidebar.multiselect(
-        "Soda Type",
-        options=['Traditional', 'Diet', 'Modern'],
-        default=['Traditional', 'Diet', 'Modern'],
-        key='amazon_types'
-    )
-    
-    amazon_filtered = amazon_df[amazon_df['soda_type'].isin(amazon_types)]
+    amazon_filtered = amazon_df.copy()  # No filters - show all data
     
     # Key Metrics
     col1, col2, col3 = st.columns(3)
@@ -267,7 +257,7 @@ with tab2:
     st.markdown("---")
     
     # SECTION 1: Revenue Distribution & Performance
-    st.subheader("💰 Revenue Distribution & Performance")
+    st.subheader("Revenue Distribution & Performance")
     
     col1, col2 = st.columns([3, 2])
     
@@ -311,6 +301,11 @@ with tab2:
         fig.update_layout(showlegend=False, height=400, margin=dict(t=40, b=0))
         st.plotly_chart(fig, use_container_width=True)
         
+        # Show percentages
+        total_rev = parent_revenue.sum()
+        for parent, rev in parent_revenue.items():
+            pct = (rev / total_rev) * 100
+            st.markdown(f"**{parent}:** {pct:.1f}%")
     
     st.markdown("""
     <div style='background: #e3f2fd; padding: 20px; border-radius: 10px; margin-bottom: 20px;'>
@@ -319,7 +314,7 @@ with tab2:
             <li><strong>Individual brands:</strong> Coca-Cola ($743K) similar to poppi ($742K)</li>
             <li><strong>Parent companies:</strong> Coca-Cola Company ($2.6M) much larger than PepsiCo ($1.7M)</li>
             <li><strong>Why?</strong> Coca-Cola Company owns 12+ brands (Diet Coke, Coke Zero, Sprite, Health-Ade, etc.) - excludes fountain/foodservice</li>
-            <li>🔥 <strong>Recent Acquisition:</strong> poppi acquired by PepsiCo (2025) - almost doubled PepsiCo market share</li>
+            <li>🔥 <strong>Recent Acquisition:</strong> poppi acquired by PepsiCo (2025) - doubled PepsiCo market share from 8.8% to 17.8%</li>
             <li><strong>OLIPOP remains independent</strong> - the last major standalone modern soda brand</li>
         </ul>
     </div>
@@ -328,7 +323,7 @@ with tab2:
     st.markdown("---")
     
     # SECTION 2: Brand Leaders within Each Soda Type
-    st.subheader("🏆 Brand Leaders within Each Soda Type")
+    st.subheader("Brand Leaders within Each Soda Type")
     
     st.info("**Insight:** Modern sodas command 2.4x premium pricing ($1.34/oz vs $0.57/oz traditional) yet maintain strong velocity, demonstrating consumers' willingness to pay more for functional benefits like prebiotics and adaptogens.")
     
@@ -429,7 +424,7 @@ with tab2:
     
     # SECTION 3: Parent Brand Deep Dive
     st.markdown("<div id='parent-brand-dive'></div>", unsafe_allow_html=True)
-    st.subheader("🏢 Parent Brand Deep Dive")
+    st.subheader("Parent Brand Deep Dive")
     
     st.info("💡 **Note:** Changing the selection will refresh the page. Your selection will persist.")
     
@@ -488,7 +483,7 @@ with tab2:
     st.markdown("---")
     
     # SECTION 4: Soda Type Analysis - MODIFIED (Velocity + Price)
-    st.subheader("⚡ Soda Type Performance: Velocity & Pricing")
+    st.subheader("Soda Type Performance: Velocity & Pricing")
     
     type_analysis = amazon_filtered.groupby('soda_type').agg({
         'velocity_score': 'mean',
@@ -568,7 +563,7 @@ with tab2:
     st.markdown("---")
 
     # SECTION 5: High Velocity & Surprising Winners
-    st.subheader("🚀 High-Velocity Products & Market Surprises")
+    st.subheader("High-Velocity Products & Market Surprises")
     
     col1, col2 = st.columns([2, 1])
     
@@ -605,7 +600,7 @@ with tab2:
     st.markdown("---")
     
     # Surprising Winners
-    st.subheader("💡 Surprising Market Dynamics")
+    st.subheader("Surprising Market Dynamics")
     
     col1, col2 = st.columns(2)
     
@@ -646,23 +641,13 @@ with tab2:
 # ============================================================================
 
 with tab3:
-    st.header("🔄 Walmart Soda Category Analysis")
+    st.header("Walmart Analysis")
     
     walmart_df = df[df['Platform'] == 'Walmart'].copy()
+    walmart_filtered = walmart_df.copy()  # No filters - show all data
     
-    # Filters
-    st.sidebar.header("🎯 Walmart Filters")
-    walmart_types = st.sidebar.multiselect(
-        "Soda Type",
-        options=['Traditional', 'Diet', 'Modern'],
-        default=['Traditional', 'Diet', 'Modern'],
-        key='walmart_types'
-    )
-    
-    walmart_filtered = walmart_df[walmart_df['soda_type'].isin(walmart_types)]
-    
-# Key Metrics
-    st.markdown("### 📊 Walmart Overview")
+    # Key Metrics
+    st.markdown("### Walmart Overview")
     
     col1, col2, col3 = st.columns(3)
     
@@ -681,49 +666,49 @@ with tab3:
     st.markdown("---")
     
     # Distribution Analysis
-    st.subheader("📦 Product Distribution")
+    st.subheader("Product Distribution")
     
     col1, col2 = st.columns(2)
     
     with col1:
-        # Revenue proxy by soda type
-        proxy_by_type = walmart_filtered.groupby('soda_type')['revenue_proxy'].sum()
+        # Type distribution
+        type_dist = walmart_filtered.groupby('soda_type')['asin'].count()
         
         fig = px.pie(
-            values=proxy_by_type.values,
-            names=proxy_by_type.index,
-            title="Revenue Proxy by Soda Type",
-            color=proxy_by_type.index,
+            values=type_dist.values,
+            names=type_dist.index,
+            title="Product Count by Type",
+            color=type_dist.index,
             color_discrete_map=SODA_TYPE_COLORS
         )
-        fig.update_traces(textposition='inside', textinfo='percent+label', textfont_size=13)
-        fig.update_layout(
-            height=450,
-            margin=dict(t=60, b=20, l=20, r=20)
-        )
+        fig.update_traces(textposition='inside', textinfo='percent+label')
+        fig.update_layout(height=300)
         st.plotly_chart(fig, use_container_width=True)
     
     with col2:
-        # Revenue proxy by parent brand
-        proxy_by_parent = walmart_filtered.groupby('parent_brand')['revenue_proxy'].sum().sort_values(ascending=False).head(5)
+        # Pack size distribution
+        pack_dist = walmart_filtered.groupby('pack_size')['asin'].count().sort_values(ascending=False).head(6)
         
-        fig = px.pie(
-            values=proxy_by_parent.values,
-            names=proxy_by_parent.index,
-            title="Revenue Proxy by Parent Brand",
-            color_discrete_sequence=px.colors.sequential.Blues_r
-        )
-        fig.update_traces(textposition='inside', textinfo='percent+label', textfont_size=13)
+        fig = go.Figure()
+        fig.add_trace(go.Bar(
+            x=[f"{int(p)}-pack" for p in pack_dist.index],
+            y=pack_dist.values,
+            marker_color='#4ECDC4'
+        ))
         fig.update_layout(
-            height=450,
-            showlegend=False,
-            margin=dict(t=60, b=20, l=20, r=20)
+            title="Pack Size Distribution",
+            xaxis_title="Pack Size",
+            yaxis_title="Product Count",
+            height=300,
+            showlegend=False
         )
+        fig.update_xaxes(showgrid=True, gridcolor='lightgray')
         st.plotly_chart(fig, use_container_width=True)
-            
+    
+    st.markdown("---")
     
     # Revenue Proxy Leaders
-    st.subheader("💰 Revenue Proxy Leaders")
+    st.subheader("Revenue Proxy Leaders")
     
     st.info("""
     **Formula Explained:** `Reviews × Price` = Historical popularity indicator
@@ -748,7 +733,7 @@ with tab3:
     st.markdown("---")
     
     # Private Label Analysis
-    st.subheader("🏷️ Walmart Private Label vs Branded")
+    st.subheader("Walmart Private Label vs Branded")
     
     # Calculate private label stats
     walmart_filtered['is_private'] = walmart_filtered['brand_clean'].apply(
@@ -799,21 +784,104 @@ with tab3:
     at steep discounts (64%). Despite low price, private label only captures 1.6% revenue proxy, showing strong brand loyalty 
     for traditional sodas even on value-focused platform.
     """)
+    
+    # Cross-Platform Comparison Section
+    st.markdown("---")
+    st.markdown("## 🔄 Cross-Platform Comparison")
+    
+    st.subheader("💵 Price Comparison: Amazon vs Walmart")
+    
+    # Brand price comparison
+    brands_both_platforms = []
+    for brand in df['brand_clean'].unique():
+        amazon_brand = amazon_df[amazon_df['brand_clean'] == brand]
+        walmart_brand = walmart_df[walmart_df['brand_clean'] == brand]
+        
+        if len(amazon_brand) > 0 and len(walmart_brand) > 0:
+            brands_both_platforms.append({
+                'brand': brand,
+                'amazon_price': amazon_brand['price'].mean(),
+                'walmart_price': walmart_brand['price'].mean()
+            })
+    
+    if brands_both_platforms:
+        comparison_df = pd.DataFrame(brands_both_platforms).sort_values('amazon_price', ascending=False).head(8)
+        
+        fig = go.Figure()
+        fig.add_trace(go.Bar(
+            name='Amazon',
+            y=comparison_df['brand'],
+            x=comparison_df['amazon_price'],
+            orientation='h',
+            marker_color='#FF9800',
+            text=comparison_df['amazon_price'].apply(lambda x: f'${x:.2f}'),
+            textposition='outside'
+        ))
+        fig.add_trace(go.Bar(
+            name='Walmart',
+            y=comparison_df['brand'],
+            x=comparison_df['walmart_price'],
+            orientation='h',
+            marker_color='#0071CE',
+            text=comparison_df['walmart_price'].apply(lambda x: f'${x:.2f}'),
+            textposition='outside'
+        ))
+        
+        fig.update_layout(
+            title="Average Price by Brand: Amazon vs Walmart",
+            xaxis_title="Average Price ($)",
+            height=400,
+            barmode='group',
+            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
+        )
+        fig.update_yaxes(title="Brand")
+        fig.update_xaxes(showgrid=True, gridcolor='lightgray')
+        st.plotly_chart(fig, use_container_width=True)
+    
+    # Platform summary
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown("""
+        <div style='background: #e8f5e9; padding: 20px; border-radius: 10px; border-left: 5px solid #4caf50;'>
+            <h4>🏪 Platform Differences</h4>
+            <ul>
+                <li><strong>Walmart:</strong> 37% bulk packs (grocery stocking)</li>
+                <li><strong>Amazon:</strong> 27% bulk packs (variety focus)</li>
+                <li><strong>Price gap:</strong> Walmart 50-60% cheaper</li>
+                <li><strong>Behavior:</strong> Essentials vs Discovery</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown("""
+        <div style='background: #fff3e0; padding: 20px; border-radius: 10px; border-left: 5px solid #ff9800;'>
+            <h4>⚠️ Use Cases</h4>
+            <ul>
+                <li><strong>Good for:</strong> Brand presence, relative ranking</li>
+                <li><strong>Good for:</strong> Historical popularity trends</li>
+                <li><strong>Not for:</strong> Current velocity estimates</li>
+                <li><strong>Not for:</strong> Absolute revenue comparison</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+
 
 # ============================================================================
 # TAB 4: ONLINE VS OFFLINE REALITY
 # ============================================================================
 
 with tab4:
-    st.header("🌐 Online vs Offline Reality")
+    st.header("Online vs Offline Reality")
     
     # Section 1: Market Size Comparison
-    st.subheader("📊 Market Context: Online vs Offline Distribution")
+    st.subheader("Market Context: Online vs Offline Distribution")
     
     st.info("""
     **Key Context:** 
     - **Total US CSD Market**: ~$50-55B annually (CSD = Carbonated Soft Drinks: all fizzy sodas)
-    - **Online CSD Sales**: Roughly 5% of total market (~$2.5-2.8B)
+    - **Online CSD Sales**: ~5% of total market (~$2.5-2.8B)
     - **This Dashboard**: Tracks ~$86M annually in Amazon ASINs (436 products = sample of Amazon soda category)
     """)
     
@@ -865,10 +933,15 @@ with tab4:
         
         **Why Over-Index Happens:**
         - Search-driven product discovery
+        - Subscription/auto-replenish behavior
         - Review-influenced purchasing
         - DTC brand strategy (Amazon-first)
         - Higher price tolerance online
-
+        
+        **The Math:**
+        - Offline modern share: 3.5%
+        - Amazon modern share: 25%
+        - Over-index: 25 ÷ 3.5 = **7x**
         """)
     
     st.success("""
@@ -881,7 +954,7 @@ with tab4:
     st.markdown("---")
     
     # Section 2: Why Modern Brands Over-Index on Amazon
-    st.subheader("🎯 Why Modern Sodas Dominate Amazon (But Not Offline)")
+    st.subheader("Why Modern Sodas Dominate Amazon (But Not Offline)")
     
     col1, col2 = st.columns(2)
     
@@ -892,6 +965,8 @@ with tab4:
             <ul>
                 <li><strong>Search Discovery:</strong> "Healthy soda" "prebiotic soda" → Modern brands rank #1</li>
                 <li><strong>Review Influence:</strong> 4.5-star ratings drive conversions</li>
+                <li><strong>Subscription Model:</strong> 15-20% subscribe & save adoption</li>
+                <li><strong>DTC Strategy:</strong> Modern brands prioritize Amazon (higher margins)</li>
                 <li><strong>No Shelf Space Battle:</strong> Equal visibility vs Coke/Pepsi</li>
                 <li><strong>Content Rich:</strong> Product descriptions educate on benefits</li>
             </ul>
@@ -906,6 +981,7 @@ with tab4:
                 <li><strong>Limited Distribution:</strong> Not in gas stations, vending machines</li>
                 <li><strong>Shelf Space Battle:</strong> Coke/Pepsi control 70%+ of space</li>
                 <li><strong>Impulse Purchase:</strong> Traditional sodas dominate point-of-sale</li>
+                <li><strong>Price Perception:</strong> $2.50/can seems expensive next to $1 Coke</li>
                 <li><strong>Brand Awareness:</strong> Low recognition outside health-conscious demo</li>
                 <li><strong>Restaurant/Fountain:</strong> Zero presence in foodservice</li>
             </ul>
@@ -915,7 +991,7 @@ with tab4:
     st.markdown("---")
     
     # Section 3: Strategic Implications
-    st.subheader("💡 Strategic Implications & M&A Context")
+    st.subheader("Strategic Implications & M&A Context")
     
     st.markdown("""
     <div style='background: linear-gradient(135deg, #2196f3 0%, #03a9f4 100%); padding: 25px; border-radius: 10px; color: white; margin-bottom: 20px;'>
@@ -963,7 +1039,7 @@ with tab4:
     st.markdown("---")
     
     # Final Summary
-    st.subheader("📋 Summary: Online vs Offline Dynamics")
+    st.subheader("Summary: Online vs Offline Dynamics")
     
     st.markdown("""
     <div style='background: #f5f5f5; padding: 25px; border-radius: 10px; margin-bottom: 20px;'>
