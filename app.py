@@ -315,8 +315,6 @@ with tab2:
     fig.update_layout(showlegend=False, height=400, margin=dict(t=40, b=0))
     st.plotly_chart(fig, use_container_width=True)
     
-    st.markdown("---")
-    
     # Row 2: Top 10 Brands (full width)
     st.markdown("**Top 10 Individual Brands by Revenue**")
     brand_revenue = amazon_filtered.groupby('brand_clean')['estimated_monthly_revenue'].sum().sort_values(ascending=False).head(10)
