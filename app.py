@@ -220,7 +220,7 @@ with tab1:
     
     st.info("""
     **💡 Strategic Implication:** Amazon serves as a discovery and trial channel for modern sodas. 
-    DTC brands over-index online due to search-driven discovery, review influence, and subscription behavior. 
+    DTC brands over-index online due to search-driven discovery, review influence and no fight for shelf space. 
     However, offline distribution (convenience stores, restaurants, vending) remains critical for scale.
     """)
 
