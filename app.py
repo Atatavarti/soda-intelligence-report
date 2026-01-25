@@ -83,7 +83,7 @@ by Archana Tatavarthi
 """, unsafe_allow_html=True)
 
 # Tabs
-tab1, tab2, tab3, tab4 = st.tabs(["📋 Overview", "📦 Amazon Analysis", "🔄 Walmart & Cross-Platform", "🌐 Online vs Offline Reality"])
+tab1, tab2, tab3, tab4 = st.tabs(["📋 Overview", "📦 Amazon Analysis", "🔄 Walmart Analysis", "🌐 Online vs Offline Reality"])
 
 # ============================================================================
 # TAB 1: OVERVIEW
@@ -651,7 +651,7 @@ with tab2:
 # ============================================================================
 
 with tab3:
-    st.header("🔄 Walmart & Cross-Platform Comparison")
+    st.header("🔄 Walmart Soda Category Analysis")
     
     walmart_df = df[df['Platform'] == 'Walmart'].copy()
     
@@ -667,7 +667,6 @@ with tab3:
     walmart_filtered = walmart_df[walmart_df['soda_type'].isin(walmart_types)]
     
     # Key Metrics
-    st.markdown("### 📊 Walmart Overview")
     
     col1, col2, col3 = st.columns(3)
     
@@ -804,89 +803,6 @@ with tab3:
     at steep discounts (64%). Despite low price, private label only captures 1.6% revenue proxy, showing strong brand loyalty 
     for traditional sodas even on value-focused platform.
     """)
-    
-    # Cross-Platform Comparison Section
-    st.markdown("---")
-    st.markdown("## 🔄 Cross-Platform Comparison")
-    
-    st.subheader("💵 Price Comparison: Amazon vs Walmart")
-    
-    # Brand price comparison
-    brands_both_platforms = []
-    for brand in df['brand_clean'].unique():
-        amazon_brand = amazon_df[amazon_df['brand_clean'] == brand]
-        walmart_brand = walmart_df[walmart_df['brand_clean'] == brand]
-        
-        if len(amazon_brand) > 0 and len(walmart_brand) > 0:
-            brands_both_platforms.append({
-                'brand': brand,
-                'amazon_price': amazon_brand['price'].mean(),
-                'walmart_price': walmart_brand['price'].mean()
-            })
-    
-    if brands_both_platforms:
-        comparison_df = pd.DataFrame(brands_both_platforms).sort_values('amazon_price', ascending=False).head(8)
-        
-        fig = go.Figure()
-        fig.add_trace(go.Bar(
-            name='Amazon',
-            y=comparison_df['brand'],
-            x=comparison_df['amazon_price'],
-            orientation='h',
-            marker_color='#FF9800',
-            text=comparison_df['amazon_price'].apply(lambda x: f'${x:.2f}'),
-            textposition='outside'
-        ))
-        fig.add_trace(go.Bar(
-            name='Walmart',
-            y=comparison_df['brand'],
-            x=comparison_df['walmart_price'],
-            orientation='h',
-            marker_color='#0071CE',
-            text=comparison_df['walmart_price'].apply(lambda x: f'${x:.2f}'),
-            textposition='outside'
-        ))
-        
-        fig.update_layout(
-            title="Average Price by Brand: Amazon vs Walmart",
-            xaxis_title="Average Price ($)",
-            height=400,
-            barmode='group',
-            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
-        )
-        fig.update_yaxes(title="Brand")
-        fig.update_xaxes(showgrid=True, gridcolor='lightgray')
-        st.plotly_chart(fig, use_container_width=True)
-    
-    # Platform summary
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        st.markdown("""
-        <div style='background: #e8f5e9; padding: 20px; border-radius: 10px; border-left: 5px solid #4caf50;'>
-            <h4>🏪 Platform Differences</h4>
-            <ul>
-                <li><strong>Walmart:</strong> 37% bulk packs (grocery stocking)</li>
-                <li><strong>Amazon:</strong> 27% bulk packs (variety focus)</li>
-                <li><strong>Price gap:</strong> Walmart 50-60% cheaper</li>
-                <li><strong>Behavior:</strong> Essentials vs Discovery</li>
-            </ul>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col2:
-        st.markdown("""
-        <div style='background: #fff3e0; padding: 20px; border-radius: 10px; border-left: 5px solid #ff9800;'>
-            <h4>⚠️ Use Cases</h4>
-            <ul>
-                <li><strong>Good for:</strong> Brand presence, relative ranking</li>
-                <li><strong>Good for:</strong> Historical popularity trends</li>
-                <li><strong>Not for:</strong> Current velocity estimates</li>
-                <li><strong>Not for:</strong> Absolute revenue comparison</li>
-            </ul>
-        </div>
-        """, unsafe_allow_html=True)
-
 
 # ============================================================================
 # TAB 4: ONLINE VS OFFLINE REALITY
