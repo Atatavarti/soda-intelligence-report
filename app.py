@@ -660,7 +660,7 @@ with tab3:
     st.markdown("---")
     
     # Distribution Analysis
-        st.subheader("📦 Product Distribution")
+    st.subheader("📦 Product Distribution")
     
     col1, col2 = st.columns(2)
     
