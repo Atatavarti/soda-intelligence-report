@@ -311,11 +311,6 @@ with tab2:
         fig.update_layout(showlegend=False, height=400, margin=dict(t=40, b=0))
         st.plotly_chart(fig, use_container_width=True)
         
-        # Show percentages
-        total_rev = parent_revenue.sum()
-        for parent, rev in parent_revenue.items():
-            pct = (rev / total_rev) * 100
-            st.markdown(f"**{parent}:** {pct:.1f}%")
     
     st.markdown("""
     <div style='background: #e3f2fd; padding: 20px; border-radius: 10px; margin-bottom: 20px;'>
