@@ -275,12 +275,6 @@ with tab2:
         fig.update_traces(textposition='inside', textinfo='percent+label', textfont_size=12)
         fig.update_layout(showlegend=False, height=400, margin=dict(t=40, b=0))
         st.plotly_chart(fig, use_container_width=True)
-        
-        # Show revenue breakdown
-        total_rev = type_revenue.sum()
-        for stype, rev in type_revenue.items():
-            pct = (rev / total_rev) * 100
-            st.markdown(f"**{stype}:** ${rev/1e6:.2f}M ({pct:.1f}%)")
     
     with col2:
         st.markdown("**Parent Company Market Share**")
@@ -313,12 +307,11 @@ with tab2:
             color_discrete_sequence=px.colors.sequential.Reds_r
         )
         fig.update_traces(
-            textposition='inside', 
+            textposition='auto',
             textinfo='label', 
-            textfont_size=11,
-            textangle=0
+            textfont_size=11
         )
-        fig.update_layout(showlegend=False, height=400, margin=dict(t=40, b=0))
+        fig.update_layout(showlegend=False, height=400, margin=dict(t=40, b=40, l=40, r=40))
         st.plotly_chart(fig, use_container_width=True)
     
     st.markdown("---")
@@ -968,7 +961,7 @@ with tab4:
         **Category Breakdown (Our Data):**
         - Traditional: 36%
         - Diet: 33%
-        - **Modern: 30%** ⚠️
+        - **Modern: 30%** 
         
         **Why Over-Index Happens:**
         - Search-driven product discovery
@@ -1077,7 +1070,7 @@ with tab4:
     
     st.markdown("""
     <div style='background: #f5f5f5; padding: 25px; border-radius: 10px; margin-bottom: 20px;'>
-        <h4 style='margin-top: 0;'>🔑 Key Points to Remember:</h4>
+        <h4 style='margin-top: 0;'> Key Points to Remember:</h4>
         <ol style='line-height: 2;'>
             <li><strong>Amazon ≠ Total Market:</strong> This dashboard shows 436 Amazon products, not the $50-55B CSD market</li>
             <li><strong>Online = 5% of Sales:</strong> 95% of sodas sold offline (convenience, restaurants, vending)</li>
