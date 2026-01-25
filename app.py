@@ -685,40 +685,35 @@ with tab3:
     st.markdown("---")
     
     # Distribution Analysis
-# Distribution Analysis
-    st.subheader("📦 Product Distribution")
-    
-    col1, col2 = st.columns(2)
-    
     with col1:
-        # Total reviews by soda type
-        review_by_type = walmart_filtered.groupby('soda_type')['review_count'].sum()
-        
-        fig = px.pie(
-            values=review_by_type.values,
-            names=review_by_type.index,
-            title="Total Reviews by Soda Type",
-            color=review_by_type.index,
-            color_discrete_map=SODA_TYPE_COLORS
-        )
-        fig.update_traces(textposition='inside', textinfo='percent+label', textfont_size=12)
-        fig.update_layout(height=400)
-        st.plotly_chart(fig, use_container_width=True)
+    # Revenue proxy by soda type
+    proxy_by_type = walmart_filtered.groupby('soda_type')['revenue_proxy'].sum()
     
+    fig = px.pie(
+        values=proxy_by_type.values,
+        names=proxy_by_type.index,
+        title="Revenue Proxy by Soda Type",
+        color=proxy_by_type.index,
+        color_discrete_map=SODA_TYPE_COLORS
+    )
+    fig.update_traces(textposition='inside', textinfo='percent+label', textfont_size=12)
+    fig.update_layout(height=400)
+    st.plotly_chart(fig, use_container_width=True)
+
     with col2:
-        # Sum of reviews by parent brand - pie chart
-        review_by_parent = walmart_filtered.groupby('parent_brand')['review_count'].sum().sort_values(ascending=False).head(5)
-        
-        fig = px.pie(
-            values=review_by_parent.values,
-            names=review_by_parent.index,
-            title="Total Reviews by Parent Brand",
-            color_discrete_sequence=px.colors.sequential.Blues_r
-        )
-        fig.update_traces(textposition='inside', textinfo='percent+label', textfont_size=12)
-        fig.update_layout(height=400, showlegend=False)
-        st.plotly_chart(fig, use_container_width=True)
-        
+    # Revenue proxy by parent brand
+    proxy_by_parent = walmart_filtered.groupby('parent_brand')['revenue_proxy'].sum().sort_values(ascending=False).head(5)
+    
+    fig = px.pie(
+        values=proxy_by_parent.values,
+        names=proxy_by_parent.index,
+        title="Revenue Proxy by Parent Brand",
+        color_discrete_sequence=px.colors.sequential.Blues_r
+    )
+    fig.update_traces(textposition='inside', textinfo='percent+label', textfont_size=12)
+    fig.update_layout(height=400, showlegend=False)
+    st.plotly_chart(fig, use_container_width=True)
+    
     # Revenue Proxy Leaders
     st.subheader("💰 Revenue Proxy Leaders")
     
