@@ -166,7 +166,7 @@ with tab1:
     
     with col3:
         modern_pct = len(df[(df['Platform'] == 'Amazon') & (df['soda_type'] == 'Modern')]) / len(df[df['Platform'] == 'Amazon']) * 100
-        st.metric("Modern % (Amazon)", f"{modern_pct:.0f}%", help="25% on Amazon vs 3-4% offline")
+        st.metric("Modern % (Amazon)", f"{modern_pct:.0f}%", help="17% on Amazon vs 3-4% offline")
     
     # Category breakdown
     st.markdown("""
@@ -194,8 +194,8 @@ with tab1:
             <ul>
                 <li>poppi & OLIPOP control 67.5% of modern soda revenue</li>
                 <li>Modern sodas: 2.4x price premium yet highest velocity</li>
-                <li>Coca-Cola Company leads overall (38.5% parent share)</li>
-                <li>PepsiCo doubled share post-poppi acquisition (24.6% parent share)</li>
+                <li>Coca-Cola Company leads overall (36.6% parent share)</li>
+                <li>PepsiCo doubled share post-poppi acquisition (12.9% to 23.3%)</li>
             </ul>
         </div>
         """, unsafe_allow_html=True)
@@ -206,7 +206,7 @@ with tab1:
             <h4 style='margin-top: 0;'>Market Reality</h4>
             <ul>
                 <li>Total US CSD market: $50-55B (offline-dominant)</li>
-                <li>Modern sodas: 3-4% offline vs 25% on Amazon (6-8x over-index)</li>
+                <li>Modern sodas: 3-4% offline vs 17% on Amazon (4-5x over-index by products, 8-10x by revenue)</li>
                 <li>Online represents ~5% of total CSD sales</li>
                 <li>Traditional brands still dominate 95%+ of volume</li>
             </ul>
@@ -258,35 +258,31 @@ with tab2:
     # SECTION 1: Revenue Distribution & Performance
     st.subheader("Revenue Distribution & Performance")
     
-    col1, col2 = st.columns([3, 2])
+    # Row 1: Revenue Share pie charts
+    col1, col2 = st.columns(2)
     
     with col1:
-        # Top 10 Individual Brands - FIXED FORMATTING
-        st.markdown("**Top 10 Individual Brands**")
-        brand_revenue = amazon_filtered.groupby('brand_clean')['estimated_monthly_revenue'].sum().sort_values(ascending=False).head(10)
+        st.markdown("**Revenue Share by Soda Type**")
+        type_revenue = amazon_filtered.groupby('soda_type')['estimated_monthly_revenue'].sum().sort_values(ascending=False)
         
-        fig = go.Figure()
-        fig.add_trace(go.Bar(
-            y=brand_revenue.index,
-            x=brand_revenue.values / 1000,  # Convert to K
-            orientation='h',
-            marker=dict(color=[BRAND_COLORS.get(brand, '#95E1D3') for brand in brand_revenue.index]),
-            text=brand_revenue.values / 1000,  # Show in K
-            texttemplate='$%{text:.0f}K',  # FIXED: Show K not M
-            textposition='outside'
-        ))
-        fig.update_layout(
-            xaxis_title="Revenue ($K)",
-            yaxis_title="",
-            height=400,
-            showlegend=False,
-            margin=dict(l=150, r=100, t=40, b=40)
+        fig = px.pie(
+            values=type_revenue.values,
+            names=type_revenue.index,
+            hole=0.4,
+            color=type_revenue.index,
+            color_discrete_map=SODA_TYPE_COLORS
         )
-        fig.update_xaxes(showgrid=True, gridcolor='lightgray', range=[0, brand_revenue.max()/1000 * 1.15])  # Add 15% padding
+        fig.update_traces(textposition='inside', textinfo='percent+label', textfont_size=12)
+        fig.update_layout(showlegend=False, height=400, margin=dict(t=40, b=0))
         st.plotly_chart(fig, use_container_width=True)
+        
+        # Show revenue breakdown
+        total_rev = type_revenue.sum()
+        for stype, rev in type_revenue.items():
+            pct = (rev / total_rev) * 100
+            st.markdown(f"**{stype}:** ${rev/1e6:.2f}M ({pct:.1f}%)")
     
     with col2:
-        # Parent Brand Revenue Share - NEW PIE CHART
         st.markdown("**Parent Company Market Share**")
         parent_revenue = amazon_filtered.groupby('parent_brand')['estimated_monthly_revenue'].sum().sort_values(ascending=False).head(5)
         
@@ -296,10 +292,41 @@ with tab2:
             hole=0.4,
             color_discrete_sequence=px.colors.sequential.Reds_r
         )
-        fig.update_traces(textposition='inside', textinfo='percent+label', textfont_size=11)
+        fig.update_traces(textposition='inside', textinfo='percent+label', textfont_size=12)
         fig.update_layout(showlegend=False, height=400, margin=dict(t=40, b=0))
         st.plotly_chart(fig, use_container_width=True)
         
+        # Show percentages
+        total_parent_rev = parent_revenue.sum()
+        for parent, rev in parent_revenue.items():
+            pct = (rev / total_parent_rev) * 100
+            st.markdown(f"**{parent}:** {pct:.1f}%")
+    
+    st.markdown("---")
+    
+    # Row 2: Top 10 Brands (full width)
+    st.markdown("**Top 10 Individual Brands by Revenue**")
+    brand_revenue = amazon_filtered.groupby('brand_clean')['estimated_monthly_revenue'].sum().sort_values(ascending=False).head(10)
+    
+    fig = go.Figure()
+    fig.add_trace(go.Bar(
+        y=brand_revenue.index,
+        x=brand_revenue.values / 1000,  # Convert to K
+        orientation='h',
+        marker=dict(color=[BRAND_COLORS.get(brand, '#06D6A0') for brand in brand_revenue.index]),
+        text=brand_revenue.values / 1000,  # Show in K
+        texttemplate='$%{text:.0f}K',
+        textposition='outside'
+    ))
+    fig.update_layout(
+        xaxis_title="Revenue ($K)",
+        yaxis_title="",
+        height=450,
+        showlegend=False,
+        margin=dict(l=150, r=100, t=40, b=40)
+    )
+    fig.update_xaxes(showgrid=True, gridcolor='lightgray', range=[0, brand_revenue.max()/1000 * 1.15])
+    st.plotly_chart(fig, use_container_width=True)
     
     st.markdown("""
     <div style='background: #e3f2fd; padding: 20px; border-radius: 10px; margin-bottom: 20px;'>
@@ -308,7 +335,7 @@ with tab2:
             <li><strong>Individual brands:</strong> Coca-Cola ($743K) similar to poppi ($742K)</li>
             <li><strong>Parent companies:</strong> Coca-Cola Company ($2.6M) much larger than PepsiCo ($1.7M)</li>
             <li><strong>Why?</strong> Coca-Cola Company owns 12+ brands (Diet Coke, Coke Zero, Sprite, Health-Ade, etc.) - excludes fountain/foodservice</li>
-            <li>🔥 <strong>Recent Acquisition:</strong> poppi acquired by PepsiCo (2025) - doubled PepsiCo market share from 8.8% to 17.8%</li>
+            <li>🔥 <strong>Recent Acquisition:</strong> poppi acquired by PepsiCo (2025) - doubled PepsiCo market share from 12.9% to 23.3%</li>
             <li><strong>OLIPOP remains independent</strong> - the last major standalone modern soda brand</li>
         </ul>
     </div>
@@ -920,9 +947,9 @@ with tab4:
         - NOT representative of total market
         
         **Category Breakdown (Our Data):**
-        - Traditional: 44%
-        - Diet: 31%
-        - **Modern: 25%** ⚠️
+        - Traditional: 36%
+        - Diet: 33%
+        - **Modern: 30%** ⚠️
         
         **Why Over-Index Happens:**
         - Search-driven product discovery
@@ -933,8 +960,8 @@ with tab4:
         """)
     
     st.success("""
-    **🎯 Key Takeaway:** Modern sodas capture 25% of our tracked Amazon sample but only 3-4% of the total offline market. 
-    This 6-8x over-representation reveals Amazon as a discovery and trial channel for premium/functional beverages, 
+    **🎯 Key Takeaway:** Modern sodas capture 30% of Amazon revenue (17% of products) but only 3-4% of the total offline market. 
+    This over-representation (8-10x by revenue, 4-5x by products) reveals Amazon as a discovery and trial channel for premium/functional beverages, 
     NOT a predictor of offline market share. Amazon amplifies certain brands due to platform dynamics (search, reviews, DTC strategy), 
     but 95%+ of soda sales still happen offline where traditional brands dominate.
     """)
