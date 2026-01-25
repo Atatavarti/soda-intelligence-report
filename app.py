@@ -166,7 +166,7 @@ with tab1:
     
     with col3:
         modern_pct = len(df[(df['Platform'] == 'Amazon') & (df['soda_type'] == 'Modern')]) / len(df[df['Platform'] == 'Amazon']) * 100
-        st.metric("Modern % (Amazon)", f"{modern_pct:.0f}%", help="17% on Amazon vs 3-4% offline")
+        st.metric("Modern % (Amazon)", f"{modern_pct:.0f}%", help="17% of products, 30% of revenue")
     
     # Category breakdown
     st.markdown("""
@@ -206,7 +206,7 @@ with tab1:
             <h4 style='margin-top: 0;'>Market Reality</h4>
             <ul>
                 <li>Total US CSD market: $50-55B (offline-dominant)</li>
-                <li>Modern sodas: 3-4% offline vs 17% on Amazon (4-5x over-index by products, 8-10x by revenue)</li>
+                <li>Modern sodas: 3-4% offline vs 30% on Amazon</li>
                 <li>Online represents ~5% of total CSD sales</li>
                 <li>Traditional brands still dominate 95%+ of volume</li>
             </ul>
@@ -284,23 +284,37 @@ with tab2:
     
     with col2:
         st.markdown("**Parent Company Market Share**")
-        parent_revenue = amazon_filtered.groupby('parent_brand')['estimated_monthly_revenue'].sum().sort_values(ascending=False).head(5)
+        
+        # Get all parent brands and calculate true market share percentages
+        all_parent_revenue = amazon_filtered.groupby('parent_brand')['estimated_monthly_revenue'].sum().sort_values(ascending=False)
+        total_amazon_revenue = amazon_filtered['estimated_monthly_revenue'].sum()
+        
+        # Top 4 + combine rest as "Others"
+        top4 = all_parent_revenue.head(4)
+        others_combined = all_parent_revenue.iloc[4:].sum()
+        
+        # Create display data with correct percentages
+        display_data = []
+        display_labels = []
+        for parent, rev in top4.items():
+            display_data.append(rev)
+            pct = (rev / total_amazon_revenue) * 100
+            display_labels.append(f"{parent} ({pct:.1f}%)")
+        
+        # Add combined others
+        display_data.append(others_combined)
+        others_pct = (others_combined / total_amazon_revenue) * 100
+        display_labels.append(f"Others ({others_pct:.1f}%)")
         
         fig = px.pie(
-            values=parent_revenue.values,
-            names=parent_revenue.index,
+            values=display_data,
+            names=display_labels,
             hole=0.4,
             color_discrete_sequence=px.colors.sequential.Reds_r
         )
-        fig.update_traces(textposition='inside', textinfo='percent+label', textfont_size=12)
+        fig.update_traces(textposition='inside', textinfo='label', textfont_size=11)
         fig.update_layout(showlegend=False, height=400, margin=dict(t=40, b=0))
         st.plotly_chart(fig, use_container_width=True)
-        
-        # Show percentages
-        total_parent_rev = parent_revenue.sum()
-        for parent, rev in parent_revenue.items():
-            pct = (rev / total_parent_rev) * 100
-            st.markdown(f"**{parent}:** {pct:.1f}%")
     
     st.markdown("---")
     
