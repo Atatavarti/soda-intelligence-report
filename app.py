@@ -686,33 +686,33 @@ with tab3:
     
     # Distribution Analysis
     with col1:
-    # Revenue proxy by soda type
-    proxy_by_type = walmart_filtered.groupby('soda_type')['revenue_proxy'].sum()
+        # Revenue proxy by soda type
+        proxy_by_type = walmart_filtered.groupby('soda_type')['revenue_proxy'].sum()
+        
+        fig = px.pie(
+            values=proxy_by_type.values,
+            names=proxy_by_type.index,
+            title="Revenue Proxy by Soda Type",
+            color=proxy_by_type.index,
+            color_discrete_map=SODA_TYPE_COLORS
+        )
+        fig.update_traces(textposition='inside', textinfo='percent+label', textfont_size=12)
+        fig.update_layout(height=400)
+        st.plotly_chart(fig, use_container_width=True)
     
-    fig = px.pie(
-        values=proxy_by_type.values,
-        names=proxy_by_type.index,
-        title="Revenue Proxy by Soda Type",
-        color=proxy_by_type.index,
-        color_discrete_map=SODA_TYPE_COLORS
-    )
-    fig.update_traces(textposition='inside', textinfo='percent+label', textfont_size=12)
-    fig.update_layout(height=400)
-    st.plotly_chart(fig, use_container_width=True)
-
     with col2:
-    # Revenue proxy by parent brand
-    proxy_by_parent = walmart_filtered.groupby('parent_brand')['revenue_proxy'].sum().sort_values(ascending=False).head(5)
-    
-    fig = px.pie(
-        values=proxy_by_parent.values,
-        names=proxy_by_parent.index,
-        title="Revenue Proxy by Parent Brand",
-        color_discrete_sequence=px.colors.sequential.Blues_r
-    )
-    fig.update_traces(textposition='inside', textinfo='percent+label', textfont_size=12)
-    fig.update_layout(height=400, showlegend=False)
-    st.plotly_chart(fig, use_container_width=True)
+        # Revenue proxy by parent brand
+        proxy_by_parent = walmart_filtered.groupby('parent_brand')['revenue_proxy'].sum().sort_values(ascending=False).head(5)
+        
+        fig = px.pie(
+            values=proxy_by_parent.values,
+            names=proxy_by_parent.index,
+            title="Revenue Proxy by Parent Brand",
+            color_discrete_sequence=px.colors.sequential.Blues_r
+        )
+        fig.update_traces(textposition='inside', textinfo='percent+label', textfont_size=12)
+        fig.update_layout(height=400, showlegend=False)
+        st.plotly_chart(fig, use_container_width=True)
     
     # Revenue Proxy Leaders
     st.subheader("💰 Revenue Proxy Leaders")
