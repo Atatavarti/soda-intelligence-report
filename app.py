@@ -98,11 +98,11 @@ with tab1:
     This dashboard analyzes the US carbonated soft drink (CSD) market across three key categories: 
     **Traditional** (Coca-Cola, Pepsi, Dr Pepper), **Diet** (Diet Coke, Coke Zero), and **Modern** 
     (poppi, OLIPOP, Zevia). The analysis highlights emerging trends in functional sodas and compares 
-    online versus offline market dynamics to understand channel-specific consumer behavior. 
+    online versus offline market dynamics to understand channel-specific consumer behavior.
     
-    The project was built using Python and Streamlit for visualization, with Claude Code powering 
-    data navigation, analysis, and automation across multiple sources. Data was scraped from Amazon and 
-    Walmart, with Amazon providing more robust metrics (Best Seller Rank,monthly sales etc) 
+    The project was built using **Python** and **Streamlit** for visualization, with **Claude Code** 
+    powering data navigation, analysis, and automation across multiple sources. Data was scraped from 
+    Amazon and Walmart, with Amazon providing more robust metrics (Best Seller Rank, monthly sales etc) 
     that enable more conclusive insights into consumer demand and product performance.
     """)
     
@@ -198,7 +198,7 @@ with tab1:
             <h4 style='margin-top: 0;'>Amazon Insights</h4>
             <ul>
                 <li>poppi & OLIPOP control 67.5% of modern soda revenue</li>
-                <li>Modern sodas: 2.4x price premium yet highest velocity</li>
+                <li>Modern sodas: 1.7x price premium yet highest velocity</li>
                 <li>Coca-Cola Company leads overall (36.6% parent share)</li>
                 <li>PepsiCo doubled share post-poppi acquisition (12.9% to 23.3%)</li>
             </ul>
@@ -220,11 +220,18 @@ with tab1:
     
     st.info("""
     **💡 Strategic Implication:** Amazon serves as a discovery and trial channel for modern sodas. 
-    DTC brands over-index online due to search-driven discovery, review influence and no fight for shelf space. 
+    DTC brands over-index online due to search-driven discovery, review influence, and subscription behavior. 
     However, offline distribution (convenience stores, restaurants, vending) remains critical for scale.
     """)
-
+    
+    # Data sources
     st.markdown("---")
+    st.markdown("""
+    **📚 Data Sources:**
+    - Market sizing: Mintel ($55.2B), Circana ($46.1B, $1.8B modern sodas)
+    - Brand share: Beverage Digest, Gitnux
+    - Product data: Amazon & Walmart web scraping (January 2026)
+    """)
 
 # ============================================================================
 # TAB 2: AMAZON ANALYSIS (REORGANIZED)
@@ -356,7 +363,7 @@ with tab2:
     # SECTION 2: Brand Leaders within Each Soda Type
     st.subheader("Brand Leaders within Each Soda Type")
     
-    st.info("**Insight:** Modern sodas command 2.4x premium pricing ($1.34/oz vs $0.57/oz traditional) yet maintain strong velocity, demonstrating consumers' willingness to pay more for functional benefits like prebiotics and adaptogens.")
+    st.info("**Insight:** Modern sodas command 1.7x premium pricing ($1.12/oz vs $0.65/oz traditional) yet maintain strong velocity, demonstrating consumers' willingness to pay more for functional benefits like prebiotics and adaptogens.")
     
     col1, col2, col3 = st.columns(3)
     
@@ -545,16 +552,19 @@ with tab2:
         st.plotly_chart(fig, use_container_width=True)
     
     with col2:
-        # Revenue-weighted price per oz
-        st.markdown("**Avg Price per Oz by Type (Revenue-Weighted)**")
+        # Volume-weighted price per oz (CORRECT formula)
+        st.markdown("**Avg Price per Oz by Type (Volume-Weighted)**")
         type_price_oz_data = []
         for soda_type in ['Modern', 'Traditional', 'Diet']:
             type_df = amazon_filtered[(amazon_filtered['soda_type'] == soda_type) & 
-                                     (amazon_filtered['price_per_oz'].notna()) & 
-                                     (amazon_filtered['estimated_monthly_revenue'].notna())]
+                                     (amazon_filtered['price'].notna()) & 
+                                     (amazon_filtered['volume_oz'].notna()) &
+                                     (amazon_filtered['units_sold_last_month'].notna())]
             if len(type_df) > 0:
-                total_revenue = type_df['estimated_monthly_revenue'].sum()
-                weighted_price_oz = (type_df['price_per_oz'] * type_df['estimated_monthly_revenue']).sum() / total_revenue
+                # Correct formula: Σ(price × units) / Σ(volume_oz × units)
+                numerator = (type_df['price'] * type_df['units_sold_last_month']).sum()
+                denominator = (type_df['volume_oz'] * type_df['units_sold_last_month']).sum()
+                weighted_price_oz = numerator / denominator
                 type_price_oz_data.append({'soda_type': soda_type, 'price_per_oz': weighted_price_oz})
         
         type_price_oz = pd.DataFrame(type_price_oz_data).sort_values('price_per_oz', ascending=False)
@@ -577,17 +587,17 @@ with tab2:
         fig.update_yaxes(showgrid=True, gridcolor='lightgray', range=[0, 1.6])
         st.plotly_chart(fig, use_container_width=True)
     
-    # Combined Insight Box - NEW
+    # Combined Insight Box
     st.success("""
     **🎯 Modern Soda Performance Paradox:**
     
     Modern sodas combine premium positioning with superior performance:
     - **Highest velocity score:** 45.6 (vs 36.2 traditional, 41.8 diet)
-    - **Premium pricing:** $1.34/oz (2.4x traditional at $0.57/oz, 2.7x diet at $0.50/oz)
+    - **Premium pricing:** $1.12/oz (1.7x traditional at $0.65/oz, 1.6x diet at $0.72/oz)
     - **Smaller trial packs:** 3.7 avg pack size (vs 6.2 traditional)
     
     **Key Insight:** Consumers willing to pay significantly more for functional benefits like prebiotics and adaptogens, 
-    proving modern sodas have achieved product-market fit despite substantial price premium. High velocity + high price = 
+    proving modern sodas have achieved product-market fit despite price premium. High velocity + premium price = 
     strong value proposition and brand loyalty.
     """)
     
@@ -959,7 +969,7 @@ with tab4:
         **Category Breakdown (Our Data):**
         - Traditional: 36%
         - Diet: 33%
-        - **Modern: 30%** 
+        - **Modern: 30%** ⚠️
         
         **Why Over-Index Happens:**
         - Search-driven product discovery
@@ -1068,7 +1078,7 @@ with tab4:
     
     st.markdown("""
     <div style='background: #f5f5f5; padding: 25px; border-radius: 10px; margin-bottom: 20px;'>
-        <h4 style='margin-top: 0;'> Key Points to Remember:</h4>
+        <h4 style='margin-top: 0;'>🔑 Key Points to Remember:</h4>
         <ol style='line-height: 2;'>
             <li><strong>Amazon ≠ Total Market:</strong> This dashboard shows 436 Amazon products, not the $50-55B CSD market</li>
             <li><strong>Online = 5% of Sales:</strong> 95% of sodas sold offline (convenience, restaurants, vending)</li>
