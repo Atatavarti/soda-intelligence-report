@@ -142,7 +142,6 @@ with tab1:
             <p><strong>Use Cases:</strong></p>
             <ul>
                 <li>✅ Brand presence comparison</li>
-                <li>✅ Relative ranking</li>
                 <li>✅ Historical trends</li>
                 <li>❌ NOT for current sales velocity</li>
                 <li>❌ NOT for absolute revenue</li>
