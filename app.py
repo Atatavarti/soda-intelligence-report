@@ -116,42 +116,42 @@ with tab1:
     with col1:
         st.markdown("""
         <div style='background: #fff3e0; padding: 20px; border-radius: 10px; border-left: 5px solid #ff9800;'>
-            <h4 style='margin-top: 0;'>Amazon Analysis (436 Products)</h4>
-            <p><strong>Revenue Estimation:</strong></p>
-            <ul>
+            <h4 style='margin-top: 0; color: #1a1a1a;'>Amazon Analysis (436 Products)</h4>
+            <p style='color: #1a1a1a;'><strong>Revenue Estimation:</strong></p>
+            <ul style='color: #1a1a1a;'>
                 <li>Based on "units sold last month" data (80% coverage)</li>
                 <li>Type-specific multipliers applied</li>
                 <li>Provides current velocity metrics</li>
             </ul>
-            <p><strong>Velocity Score (0-100):</strong></p>
-            <ul>
+            <p style='color: #1a1a1a;'><strong>Velocity Score (0-100):</strong></p>
+            <ul style='color: #1a1a1a;'>
                 <li><strong>Formula:</strong> 100 - (ln(BSR) × 10.857)</li>
                 <li><strong>BSR</strong> = Best Sellers Rank (Amazon's hourly ranking)</li>
                 <li><strong>Examples:</strong> BSR 1 = 100 velocity | BSR 10 = 75 | BSR 100 = 50</li>
                 <li>Logarithmic scale captures diminishing returns</li>
             </ul>
-            <p><strong>Coverage:</strong> 87% of products have BSR data</p>
+            <p style='color: #1a1a1a;'><strong>Coverage:</strong> 87% of products have BSR data</p>
         </div>
         """, unsafe_allow_html=True)
     
     with col2:
         st.markdown("""
         <div style='background: #e3f2fd; padding: 20px; border-radius: 10px; border-left: 5px solid #2196f3;'>
-            <h4 style='margin-top: 0;'>Walmart Analysis (453 Products)</h4>
-            <p><strong>Revenue Proxy:</strong></p>
-            <ul>
+            <h4 style='margin-top: 0; color: #1a1a1a;'>Walmart Analysis (453 Products)</h4>
+            <p style='color: #1a1a1a;'><strong>Revenue Proxy:</strong></p>
+            <ul style='color: #1a1a1a;'>
                 <li><strong>Formula:</strong> Reviews × Price</li>
                 <li>Historical popularity indicator</li>
                 <li>NOT real-time velocity</li>
             </ul>
-            <p><strong>Use Cases:</strong></p>
-            <ul>
+            <p style='color: #1a1a1a;'><strong>Use Cases:</strong></p>
+            <ul style='color: #1a1a1a;'>
                 <li>✅ Brand presence comparison</li>
                 <li>✅ Historical trends</li>
                 <li>❌ NOT for current sales velocity</li>
                 <li>❌ NOT for absolute revenue</li>
             </ul>
-            <p><strong>Note:</strong> Walmart data complements Amazon but uses different metrics</p>
+            <p style='color: #1a1a1a;'><strong>Note:</strong> Walmart data complements Amazon but uses different metrics</p>
         </div>
         """, unsafe_allow_html=True)
     
@@ -176,8 +176,8 @@ with tab1:
     # Category breakdown
     st.markdown("""
     <div style='background: #f5f5f5; padding: 20px; border-radius: 10px; margin-top: 20px;'>
-        <h4 style='margin-top: 0;'>Soda Type Definitions:</h4>
-        <ul>
+        <h4 style='margin-top: 0; color: #1a1a1a;'>Soda Type Definitions:</h4>
+        <ul style='color: #1a1a1a;'>
             <li><strong>Traditional:</strong> Classic sodas (Coca-Cola, Pepsi, Dr Pepper, Mountain Dew, Sprite)</li>
             <li><strong>Diet:</strong> Zero/low-calorie variants (Diet Coke, Pepsi Zero, Coke Zero Sugar)</li>
             <li><strong>Modern:</strong> Functional/prebiotic sodas (poppi, OLIPOP, Zevia, Bloom Nutrition, Culture Pop)</li>
@@ -195,8 +195,8 @@ with tab1:
     with col1:
         st.markdown("""
         <div style='background: #e8f5e9; padding: 20px; border-radius: 10px; border-left: 5px solid #4caf50;'>
-            <h4 style='margin-top: 0;'>Amazon Insights</h4>
-            <ul>
+            <h4 style='margin-top: 0; color: #1a1a1a;'>Amazon Insights</h4>
+            <ul style='color: #1a1a1a;'>
                 <li>poppi & OLIPOP control 67.5% of modern soda revenue</li>
                 <li>Modern sodas: 1.7x price premium yet highest velocity</li>
                 <li>Coca-Cola Company leads overall (36.6% parent share)</li>
@@ -208,8 +208,8 @@ with tab1:
     with col2:
         st.markdown("""
         <div style='background: #fff3e0; padding: 20px; border-radius: 10px; border-left: 5px solid #ff9800;'>
-            <h4 style='margin-top: 0;'>Market Reality</h4>
-            <ul>
+            <h4 style='margin-top: 0; color: #1a1a1a;'>Market Reality</h4>
+            <ul style='color: #1a1a1a;'>
                 <li>Total US CSD market: $50-55B (offline-dominant)</li>
                 <li>Modern sodas: 3-4% offline vs 30% on Amazon</li>
                 <li>Online represents ~5% of total CSD sales</li>
@@ -339,8 +339,8 @@ with tab2:
     
     st.markdown("""
     <div style='background: #e3f2fd; padding: 20px; border-radius: 10px; margin-bottom: 20px;'>
-        <h4 style='margin-top: 0;'>💡 Brand vs Parent Company:</h4>
-        <ul style='line-height: 2;'>
+        <h4 style='margin-top: 0; color: #1a1a1a;'>💡 Brand vs Parent Company:</h4>
+        <ul style='line-height: 2; color: #1a1a1a;'>
             <li><strong>Individual brands:</strong> Coca-Cola ($743K) similar to poppi ($742K)</li>
             <li><strong>Parent companies:</strong> Coca-Cola Company ($2.6M) much larger than PepsiCo ($1.7M)</li>
             <li><strong>Why?</strong> Coca-Cola Company owns 12+ brands (Diet Coke, Coke Zero, Sprite, Health-Ade, etc.) - excludes fountain/foodservice</li>
@@ -624,9 +624,9 @@ with tab2:
         
         st.markdown(f"""
         <div style='background: #e8f5e9; padding: 15px; border-radius: 8px; border-left: 5px solid #4caf50;'>
-            <p style='margin: 0; font-size: 14px;'><strong>{modern_in_top10}/10 top velocity products are Modern sodas!</strong></p>
+            <p style='margin: 0; font-size: 14px; color: #1a1a1a;'><strong>{modern_in_top10}/10 top velocity products are Modern sodas!</strong></p>
             <br>
-            <p style='margin: 0; font-size: 13px;'>Modern brands dominate high-velocity segment</p>
+            <p style='margin: 0; font-size: 13px; color: #1a1a1a;'>Modern brands dominate high-velocity segment</p>
         </div>
         """, unsafe_allow_html=True)
     
@@ -876,8 +876,8 @@ with tab3:
     with col1:
         st.markdown("""
         <div style='background: #e8f5e9; padding: 20px; border-radius: 10px; border-left: 5px solid #4caf50;'>
-            <h4>🏪 Platform Differences</h4>
-            <ul>
+            <h4 style='color: #1a1a1a;'>🏪 Platform Differences</h4>
+            <ul style='color: #1a1a1a;'>
                 <li><strong>Walmart:</strong> 37% bulk packs (grocery stocking)</li>
                 <li><strong>Amazon:</strong> 27% bulk packs (variety focus)</li>
                 <li><strong>Price gap:</strong> Walmart 50-60% cheaper</li>
@@ -889,8 +889,8 @@ with tab3:
     with col2:
         st.markdown("""
         <div style='background: #fff3e0; padding: 20px; border-radius: 10px; border-left: 5px solid #ff9800;'>
-            <h4>⚠️ Use Cases</h4>
-            <ul>
+            <h4 style='color: #1a1a1a;'>⚠️ Use Cases</h4>
+            <ul style='color: #1a1a1a;'>
                 <li><strong>Good for:</strong> Brand presence, relative ranking</li>
                 <li><strong>Good for:</strong> Historical popularity trends</li>
                 <li><strong>Not for:</strong> Current velocity estimates</li>
@@ -987,8 +987,8 @@ with tab4:
     with col1:
         st.markdown("""
         <div style='background: #e8f5e9; padding: 20px; border-radius: 10px; border-left: 5px solid #4caf50;'>
-            <h4>✅ Amazon Advantages for Modern Brands</h4>
-            <ul>
+            <h4 style='color: #1a1a1a;'>✅ Amazon Advantages for Modern Brands</h4>
+            <ul style='color: #1a1a1a;'>
                 <li><strong>Search Discovery:</strong> "Healthy soda" "prebiotic soda" → Modern brands rank #1</li>
                 <li><strong>Review Influence:</strong> 4.5-star ratings drive conversions</li>
                 <li><strong>Subscription Model:</strong> 15-20% subscribe & save adoption</li>
@@ -1002,8 +1002,8 @@ with tab4:
     with col2:
         st.markdown("""
         <div style='background: #fff3e0; padding: 20px; border-radius: 10px; border-left: 5px solid #ff9800;'>
-            <h4>Offline Challenges for Modern Brands</h4>
-            <ul>
+            <h4 style='color: #1a1a1a;'>Offline Challenges for Modern Brands</h4>
+            <ul style='color: #1a1a1a;'>
                 <li><strong>Limited Distribution:</strong> Not in gas stations, vending machines</li>
                 <li><strong>Shelf Space Battle:</strong> Coke/Pepsi control 70%+ of space</li>
                 <li><strong>Impulse Purchase:</strong> Traditional sodas dominate point-of-sale</li>
@@ -1069,8 +1069,8 @@ with tab4:
     
     st.markdown("""
     <div style='background: #f5f5f5; padding: 25px; border-radius: 10px; margin-bottom: 20px;'>
-        <h4 style='margin-top: 0;'>Key Points to Remember:</h4>
-        <ol style='line-height: 2;'>
+        <h4 style='margin-top: 0; color: #1a1a1a;'>Key Points to Remember:</h4>
+        <ol style='line-height: 2; color: #1a1a1a;'>
             <li><strong>Amazon ≠ Total Market:</strong> This dashboard shows 436 Amazon products, not the $50-55B CSD market</li>
             <li><strong>Online = 5% of Sales:</strong> 95% of sodas sold offline (convenience, restaurants, vending)</li>
             <li><strong>Modern Sodas Over-Index 6-8x Online:</strong> 25% Amazon vs 3-4% offline</li>
