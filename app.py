@@ -25,10 +25,11 @@ st.markdown("""
         background-color: #f0f2f6;
         border-radius: 10px 10px 0 0;
         font-weight: 600;
+        color: #1a1a1a !important;
     }
     .stTabs [aria-selected="true"] {
         background-color: #FF4B4B;
-        color: white;
+        color: white !important;
     }
 </style>
 """, unsafe_allow_html=True)
