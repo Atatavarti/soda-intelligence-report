@@ -563,9 +563,9 @@ with tab2:
             yaxis_title="Avg Velocity Score",
             height=300,
             showlegend=False,
-            margin=dict(t=40, b=55)
+            margin=dict(t=40, b=50)
         )
-        fig.update_yaxes(showgrid=True, gridcolor='lightgray', range=[0, 50])
+        fig.update_yaxes(showgrid=True, gridcolor='lightgray', range=[0, 55])
         st.plotly_chart(fig, use_container_width=True)
     
     with col2:
