@@ -485,13 +485,38 @@ with tab2:
     
     with col1:
         st.markdown("**Sub-Brand Revenue Breakdown**")
-        subbrand_revenue = parent_df.groupby('brand_clean')['estimated_monthly_revenue'].sum().sort_values(ascending=False).head(5)
+        
+        # Calculate total revenue and percentages
+        subbrand_revenue = parent_df.groupby('brand_clean')['estimated_monthly_revenue'].sum()
+        total_revenue = subbrand_revenue.sum()
+        subbrand_pct = (subbrand_revenue / total_revenue * 100).sort_values(ascending=False)
+        
+        # Separate brands >5% and group rest as "Others"
+        significant_brands = subbrand_pct[subbrand_pct >= 5]
+        others_total = subbrand_pct[subbrand_pct < 5].sum()
+        
+        # Combine for display
+        if others_total > 0:
+            display_data = pd.concat([
+                significant_brands,
+                pd.Series({'Others': others_total})
+            ])
+        else:
+            display_data = significant_brands
+        
+        # Get corresponding revenue values
+        display_revenue = []
+        for brand in display_data.index:
+            if brand == 'Others':
+                display_revenue.append(subbrand_revenue[subbrand_pct < 5].sum())
+            else:
+                display_revenue.append(subbrand_revenue[brand])
         
         fig = px.pie(
-            values=subbrand_revenue.values,
-            names=subbrand_revenue.index,
-            color=subbrand_revenue.index,
-            color_discrete_map=BRAND_COLORS
+            values=display_revenue,
+            names=display_data.index,
+            color=display_data.index,
+            color_discrete_map={**BRAND_COLORS, 'Others': '#CCCCCC'}
         )
         fig.update_traces(textposition='inside', textinfo='percent+label', textfont_size=11)
         fig.update_layout(showlegend=False, height=300, margin=dict(t=0, b=0))
