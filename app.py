@@ -282,15 +282,36 @@ with tab2:
         all_parent_revenue = amazon_filtered.groupby('parent_brand')['estimated_monthly_revenue'].sum().sort_values(ascending=False)
         total_amazon_revenue = amazon_filtered['estimated_monthly_revenue'].sum()
         
+        # Calculate percentages
+        all_parent_pct = (all_parent_revenue / total_amazon_revenue) * 100
         
-        # Create display data with correct percentages
+        # Separate significant brands (≥5%) and small brands (<5%)
+        significant_brands = all_parent_pct[all_parent_pct >= 5]
+        small_brands = all_parent_pct[(all_parent_pct < 5) & (all_parent_pct.index != 'Other')]
+        
+        # Handle existing "Other" category separately
+        existing_other = all_parent_pct[all_parent_pct.index == 'Other'].sum() if 'Other' in all_parent_pct.index else 0
+        
+        # Combine small brands + existing "Other" into new "Other"
+        others_total_pct = small_brands.sum() + existing_other
+        
+        # Create display data
         display_data = []
         display_labels = []
-        for parent, rev in all_parent_revenue.items():
-            display_data.append(rev)
-            pct = (rev / total_amazon_revenue) * 100
-            display_labels.append(f"{parent} ({pct:.1f}%)")
-
+        
+        # Add significant brands
+        for parent, pct in significant_brands.items():
+            if parent != 'Other':  # Exclude if "Other" somehow has >5%
+                display_data.append(all_parent_revenue[parent])
+                display_labels.append(f"{parent} ({pct:.1f}%)")
+        
+        # Add combined "Other" if it exists
+        if others_total_pct > 0:
+            others_revenue = all_parent_revenue[small_brands.index].sum()
+            if 'Other' in all_parent_revenue.index:
+                others_revenue += all_parent_revenue['Other']
+            display_data.append(others_revenue)
+            display_labels.append(f"Other ({others_total_pct:.1f}%)")
         
         fig = px.pie(
             values=display_data,
