@@ -601,7 +601,7 @@ with tab2:
             showlegend=False,
             margin=dict(t=40, b=50)
         )
-        fig.update_yaxes(showgrid=True, gridcolor='lightgray', range=[0, 1.6])
+        fig.update_yaxes(showgrid=True, gridcolor='lightgray', range=[0, 0.3])
         st.plotly_chart(fig, use_container_width=True)
 
     
@@ -611,8 +611,7 @@ with tab2:
     
     Modern sodas combine premium positioning with superior performance:
     - **Highest velocity score:** 45.6 (vs 36.2 traditional, 41.8 diet)
-    - **Premium pricing:** $1.12/oz (1.7x traditional at $0.65/oz, 1.6x diet at $0.72/oz)
-    - **Smaller trial packs:** 3.7 avg pack size (vs 6.2 traditional)
+    - **Premium pricing:** $0.23/oz (2.6x traditional & diet prices)
     
     **Key Insight:** Consumers willing to pay significantly more for functional benefits like prebiotics and adaptogens, 
     proving modern sodas have achieved product-market fit despite price premium. High velocity + premium price = 
