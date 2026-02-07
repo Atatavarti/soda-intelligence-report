@@ -563,7 +563,7 @@ with tab2:
             yaxis_title="Avg Velocity Score",
             height=300,
             showlegend=False,
-            margin=dict(t=40, b=50)
+            margin=dict(t=40, b=55)
         )
         fig.update_yaxes(showgrid=True, gridcolor='lightgray', range=[0, 50])
         st.plotly_chart(fig, use_container_width=True)
@@ -611,7 +611,7 @@ with tab2:
     **🎯 Modern Soda Performance Paradox:**
     
     Modern sodas combine premium positioning with superior performance:
-    - **Highest velocity score:** 45.6 (vs 36.2 traditional, 41.8 diet)
+    - **Highest velocity score:** 47 (vs 36.7 traditional, 41.8 diet)
     - **Premium pricing:** $0.23/oz (2.6x traditional & diet prices)
     
     **Key Insight:** Consumers willing to pay significantly more for functional benefits like prebiotics and adaptogens, 
