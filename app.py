@@ -356,8 +356,6 @@ with tab2:
     # SECTION 2: Brand Leaders within Each Soda Type
     st.subheader("Brand Leaders within Each Soda Type")
     
-    st.info("**Insight:** Modern sodas command 1.7x premium pricing ($1.12/oz vs $0.65/oz traditional) yet maintain strong velocity, demonstrating consumers' willingness to pay more for functional benefits like prebiotics and adaptogens.")
-    
     col1, col2, col3 = st.columns(3)
     
     # Modern Brands
@@ -577,11 +575,12 @@ with tab2:
             type_df = amazon_filtered[(amazon_filtered['soda_type'] == soda_type) & 
                                      (amazon_filtered['price'].notna()) & 
                                      (amazon_filtered['volume_oz'].notna()) &
+                                     (amazon_filtered['pack_size'].notna()) &
                                      (amazon_filtered['units_sold_last_month'].notna())]
             if len(type_df) > 0:
-                # Correct formula: Σ(price × units) / Σ(volume_oz × units)
+                # Correct formula: Σ(price × units) / Σ(volume_oz × pack_size × units)
                 numerator = (type_df['price'] * type_df['units_sold_last_month']).sum()
-                denominator = (type_df['volume_oz'] * type_df['units_sold_last_month']).sum()
+                denominator = (type_df['volume_oz'] * type_df['pack_size'] * type_df['units_sold_last_month']).sum()
                 weighted_price_oz = numerator / denominator
                 type_price_oz_data.append({'soda_type': soda_type, 'price_per_oz': weighted_price_oz})
         
@@ -604,6 +603,7 @@ with tab2:
         )
         fig.update_yaxes(showgrid=True, gridcolor='lightgray', range=[0, 1.6])
         st.plotly_chart(fig, use_container_width=True)
+
     
     # Combined Insight Box
     st.success("""
