@@ -282,22 +282,15 @@ with tab2:
         all_parent_revenue = amazon_filtered.groupby('parent_brand')['estimated_monthly_revenue'].sum().sort_values(ascending=False)
         total_amazon_revenue = amazon_filtered['estimated_monthly_revenue'].sum()
         
-        # Top 4 + combine rest as "Others"
-        top4 = all_parent_revenue.head(4)
-        others_combined = all_parent_revenue.iloc[4:].sum()
         
         # Create display data with correct percentages
         display_data = []
         display_labels = []
-        for parent, rev in top4.items():
+        for parent, rev in all_parent_revenue.items():
             display_data.append(rev)
             pct = (rev / total_amazon_revenue) * 100
             display_labels.append(f"{parent} ({pct:.1f}%)")
-        
-        # Add combined others
-        display_data.append(others_combined)
-        others_pct = (others_combined / total_amazon_revenue) * 100
-        display_labels.append(f"Others ({others_pct:.1f}%)")
+
         
         fig = px.pie(
             values=display_data,
